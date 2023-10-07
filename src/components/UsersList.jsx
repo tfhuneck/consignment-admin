@@ -1,5 +1,4 @@
 
-
 const UsersList = ({userData, setDisplayUser}) => {
 
     return (
@@ -7,7 +6,12 @@ const UsersList = ({userData, setDisplayUser}) => {
             {userData && userData.map((user, key) => {
                 return(
                     <>
-                        <div className="users-list" id={key} key={key} onClick={() => setDisplayUser(userData[key])}>
+                        <div 
+                            className="users-list" 
+                            id={`${user.userid}`} 
+                            key={key} 
+                            onClick={() => setDisplayUser(userData[key])}
+                        >
                             <span className="users-list-name" >
                                 user: {user.name} 
                             </span> <br />

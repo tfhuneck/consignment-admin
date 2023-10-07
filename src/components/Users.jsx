@@ -5,18 +5,18 @@ import UserListings from './UserListings';
 import { useFetchUserData } from "./hooks/useFetchUserData";
 import { useSetUserDisplay } from "./hooks/useSetUserDisplay";
 import { useUserList } from './hooks/useUserList';
+import { Link } from 'react-router-dom';
 
 const Users = () => {
 
-    
-    const [ display, setDisplay ]           = useSetUserDisplay();
+    // Fetches all user data
     const { userData }                      = useFetchUserData();
+    
+    // Custom hook sets which user is displayed
     const {displayUser, setDisplayUser}     = useUserList(userData);
-
-    function listed(data) {
-        let fixed = data.substring(0, 10);
-        return fixed
-    }
+    
+    // Custom hook that handles what window is displayed for user account
+    const [ display, setDisplay ]           = useSetUserDisplay();
 
     return (
         <>
@@ -62,22 +62,21 @@ const Users = () => {
                                     <button className="btn-user-page" id="overview" onClick={() => setDisplay('overview')} >Overview</button>
                                 </div>
                                 <div className="col">
-                                    <button className="btn-user-page" id="listings" onClick={() => setDisplay('listings')} >Listings</button>
+                                    <button className="btn-user-page" id="balance" onClick={() => setDisplay('balance')} >Balance</button>
                                 </div>
                                 <div className="col">
-                                    <button className="btn-user-page" id="balance" onClick={() => setDisplay('balance')} >Balance</button>
+                                    <Link to='/listings' >
+                                        <button className="btn-user-page" id="listings" >Listings</button>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col d-flex justify-content-center">
-                                    <h4> {displayUser && displayUser.name}</h4>
+                                    <h5> {displayUser && displayUser.name}</h5>
                                 </div>
                             </div>
                             {display === 'overview' &&  
                                 <UserDataOverview displayUser = {displayUser} />
-                            }
-                            {display === 'listings'&&
-                                <UserListings />
                             }
                         </div>
                     </div>

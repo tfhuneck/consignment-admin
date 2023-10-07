@@ -17,7 +17,7 @@ app.use(cors());
 
 // =====routes===== 
 app.use('/getusers', require('./routes/getUsersRoute'));
-
+app.use('/active', require('./routes/getActiveRoute'));
 
 // =========Setting up Server om port 8090============
 app.listen(8090, () => {
