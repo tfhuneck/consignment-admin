@@ -5,12 +5,12 @@ import SoldTable from './SoldTable';
 import { useSortPay } from "./hooks/useSortPay";
 import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
-import { useFetchUserDataSold } from './hooks/useFetchUserDataSold';
+import { useFetchData } from "./hooks/useFetchData";
 
 function Sold() {
 
     // fetch User Data hook
-    const {userData} = useFetchUserDataSold();
+    const {userData} = useFetchData('/sold');
 
     // Custom Search hook 
     const { searchValue, filteredData, clearSearch, handleSearch } = useSearch(userData);
@@ -26,7 +26,7 @@ function Sold() {
         
         return (
             <>
-                <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} />
+                <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} searchClass={'listings-search'} clearClass={'clear-search'} />
                 <table className='table table-dark table-striped table-hover'>
                     <thead>
                         <tr>

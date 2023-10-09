@@ -5,12 +5,12 @@ import Table from './ActivelistingsTable'
 import { useSort } from "./hooks/useSort";
 import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
-import { useFetchUserDataActive } from "./hooks/useFetchUserDataActive";
+import { useFetchData } from "./hooks/useFetchData";
 
 function Listings(props) {
 
     // fetch User Data hook
-    const {userData} = useFetchUserDataActive();
+    const {userData} = useFetchData('/active');
     
     // Custom Search hook 
     const { searchValue, filteredData, clearSearch, handleSearch } = useSearch(userData);
@@ -25,7 +25,7 @@ function Listings(props) {
         
         return (
             <>
-                <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} />
+                <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} searchClass={'listings-search'} clearClass={'clear-search'} />
                 <table className='table table-dark table-striped table-hover'>
                     <thead>
                         <tr>

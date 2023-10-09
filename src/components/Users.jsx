@@ -6,6 +6,8 @@ import { useFetchUserData } from "./hooks/useFetchUserData";
 import { useSetUserDisplay } from "./hooks/useSetUserDisplay";
 import { useUserList } from './hooks/useUserList';
 import { Link } from 'react-router-dom';
+import { useSearch } from './hooks/useSearch';
+import Search from './Search';
 
 const Users = () => {
 
@@ -14,6 +16,9 @@ const Users = () => {
     
     // Custom hook sets which user is displayed
     const {displayUser, setDisplayUser}     = useUserList(userData);
+
+    // Custom Search hook 
+    const { searchValue, filteredData, clearSearch, handleSearch } = useSearch(userData);
     
     // Custom hook that handles what window is displayed for user account
     const [ display, setDisplay ]           = useSetUserDisplay();
@@ -33,14 +38,7 @@ const Users = () => {
                             </div>
                             <div className="row">
                                 <div>
-                                    <input placeholder="Search" className="search" name="text" type="text" 
-                                    // value={searchValue} onChange={handleSearch}
-                                    />
-                                    <svg className="clear-search" 
-                                        // onClick={clearSearch} 
-                                        fill="#CFE6FC" width="20px" height="20px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M202.82861,197.17188a3.99991,3.99991,0,1,1-5.65722,5.65624L128,133.65723,58.82861,202.82812a3.99991,3.99991,0,0,1-5.65722-5.65624L122.343,128,53.17139,58.82812a3.99991,3.99991,0,0,1,5.65722-5.65624L128,122.34277l69.17139-69.17089a3.99991,3.99991,0,0,1,5.65722,5.65624L133.657,128Z"/>
-                                    </svg>
+                                <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} searchClass={'users-search'} clearClass={'clear-search-users'} />
                                 </div>
                             </div>
                             <div className="row">
