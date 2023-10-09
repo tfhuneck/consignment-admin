@@ -58,16 +58,6 @@ const SoldTable = ({currentRecords}) => {
                                         <div className="accordion-body">
                                             <div className='container'>
                                                 <div className='row'>
-                                                    <div className='col-sm-6'>
-                                                        <Element
-                                                            class='listing-img' 
-                                                            body={(
-                                                                <>
-                                                                    <img src={image} className='product-img' />
-                                                                </>
-                                                            )}
-                                                        />    
-                                                    </div>
                                                     <div className='col'>
                                                         <div className='row'>
                                                             <div className='col d-flex justify-content-center'>

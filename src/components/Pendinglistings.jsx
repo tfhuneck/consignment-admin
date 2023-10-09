@@ -5,12 +5,12 @@ import PendingTable from "./PendingTable";
 import { useSortPay } from "./hooks/useSortPay";
 import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
-import { useFetchUserDataPending } from "./hooks/useFetchUserDataPending";
+import { useFetchData } from "./hooks/useFetchData";
 
 function Pending() {
 
     // fetch User Data hook
-    const {userData} = useFetchUserDataPending();
+    const {userData} = useFetchData('/pending');
     
     // Custom Search hook 
     const { searchValue, filteredData, clearSearch, handleSearch } = useSearch(userData);
@@ -26,7 +26,7 @@ function Pending() {
         
         return (
             <>
-                <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} />
+                <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} searchClass={'listings-search'} clearClass={'clear-search'} />
                 <table className='table table-dark table-striped table-hover'>
                     <thead>
                         <tr>
