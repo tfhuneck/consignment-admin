@@ -4,25 +4,31 @@ import { UserContext } from "../../App";
 export const useUserList = (userData) => {
     
     const [ displayUser, setDisplayUser ]   = useContext(UserContext);
+
+    // console.log(displayUser);
     
     useEffect(() => {
-        userData ? setDisplayUser(userData[0]) : setDisplayUser('')
+        userData && !displayUser ? setDisplayUser(userData[0]) : setDisplayUser(displayUser)
     }, [userData]);
     
     useEffect(() => {
-        console.log(displayUser)
+        // console.log(displayUser)
         if (userData && displayUser) {
-            const element = document.getElementById(displayUser.userid);
-            element.className = "users-list users-list-active";
-            const inActive = userData.filter((el) =>{
-                return el.userid !== element.id
-            });
-            for(let i = 0; i < inActive.length; i++){
-                let div = document.getElementById(inActive[i].userid);
-                div.className = 'users-list'
-            };
+            try {
+                const element = document.getElementById(displayUser.userid);
+                element.className = "users-list users-list-active";
+                const inActive = userData.filter((el) =>{
+                    return el.userid !== element.id
+                });
+                for(let i = 0; i < inActive.length; i++){
+                    let div = document.getElementById(inActive[i].userid);
+                    div.className = 'users-list'
+                };
+            } catch {
+                console.log('user search active not displayed')
+            }
         }
-    }, [displayUser, setDisplayUser])
+    }, [userData, displayUser, setDisplayUser])
 
     return {displayUser, setDisplayUser};
 }

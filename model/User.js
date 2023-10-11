@@ -19,7 +19,8 @@ const userSchema = new mongoose.Schema({
         }],
         balance: [{
             title: {type: String, default: null},
-            price: {type: Number, default: 0}
+            price: {type: Number, default: 0}, 
+            date: {type: String, default: null}
         }]
     },
     { timestamps: true }
