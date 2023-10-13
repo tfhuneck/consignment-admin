@@ -24,16 +24,20 @@ const UserDataOverview = (props) => {
     const updateSku = async () => {
         let userId = displayUser.userid;
         console.log(sku + userId)
-        await axios.post(serverUrl + '/updatesku', {
-            'userid' : userId,
-            'sku' : sku,
-        })
-        .then(async res => {
-            console.log('SKU updated');
-            alert('User Sku updated');
-            window.location.reload(); 
-        })
-        .catch(err => console.log(err));
+        if (sku){
+            await axios.post(serverUrl + '/updatesku', {
+                'userid' : userId,
+                'sku' : sku,
+            })
+            .then(async res => {
+                console.log('SKU updated');
+                alert('User Sku updated');
+                window.location.reload(); 
+            })
+            .catch(err => console.log(err));
+        } else {
+            alert('no sku entered')
+        }
     }
 
 

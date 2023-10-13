@@ -1,6 +1,7 @@
 import totalBalance from "./hooks/totalBalance";
 import listed from './hooks/listed'
 import totalPayout from "./hooks/totalPayout";
+import { Link } from "react-router-dom";
 
 const UserBalance = (props) => {
 
@@ -62,7 +63,9 @@ const UserBalance = (props) => {
                 <div className="col">
                 </div>
                 <div className="col">
-                    <button className="btn btn-users-action">Manage Cashout Transactions</button>   
+                    <Link to='/transactions' >
+                        <button className="btn btn-users-action">Manage Cashout Transactions</button>   
+                    </Link>
                 </div>
             </div>
         </div>

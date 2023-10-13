@@ -4,6 +4,7 @@ import Nav from "./components/Nav";
 import Home from "./components/Home";
 import Users from "./components/Users";
 import UserListings from "./components/UserListings";
+import CashoutTransactions from "./components/UserTransactions";
 
 export const UserContext = createContext();
 
@@ -25,6 +26,7 @@ function App() {
               <Route path="/" element={ <Home/> } /> 
               <Route path="/users" element={ <Users/> } /> 
               <Route path='/listings' element={ < UserListings />} />
+              <Route path='/transactions' element={ < CashoutTransactions />} />
             </Routes>
           </div>
         </BrowserRouter>
