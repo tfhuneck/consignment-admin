@@ -1,12 +1,41 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const UserDataOverview = (props) => {
+
+    const [ sku, setSku] = useState('');
+
+    const handleSku = (e) => {
+        setSku(e.target.value);
+    }
+
+    const displayUser = props.displayUser
+    const serverUrl     = 'http://localhost:8090' || `${process.env.REACT_APP_production_url}`;
 
     function listed(data) {
         let fixed = data.substring(0, 10);
         return fixed
     }
 
-    const displayUser = props.displayUser
+    useEffect(() => {
+        if(displayUser) setSku('');
+    }, [displayUser])
+
+    const updateSku = async () => {
+        let userId = displayUser.userid;
+        console.log(sku + userId)
+        await axios.post(serverUrl + '/updatesku', {
+            'userid' : userId,
+            'sku' : sku,
+        })
+        .then(async res => {
+            console.log('SKU updated');
+            alert('User Sku updated');
+            window.location.reload(); 
+        })
+        .catch(err => console.log(err));
+    }
+
 
     return (
         <>
@@ -80,20 +109,26 @@ const UserDataOverview = (props) => {
                         Balance: 
                     </div>
                     <div className="col">
-                        ${displayUser && displayUser.solditems.length}
+                        ${displayUser && displayUser.currentbalance.toFixed(2)}
                     </div>
                 </div> <br />
                 <div className="row">
                     <div className="col">
                         User SKU: 
                         <input type="text" name="sku" id="sku" 
-                            placeholder={displayUser && displayUser.skucode ? displayUser.skucode : 'enter sku'} 
-                            // value={displayUser && displayUser.skucode ? displayUser.skucode : 'enter sku'}
+                            placeholder={displayUser && displayUser.skucode ? displayUser.skucode : 'enter sku'}
+                            // defaultValue={displayUser && displayUser.skucode ? displayUser.skucode : 'enter sku'} 
                             className="sku"
+                            onChange={handleSku}
                         />
                     </div>
                     <div className="col">
-                        <button className="btn-sku">Update User SKU</button>
+                        <button 
+                            className="btn btn-users-action" 
+                            onClick={updateSku}
+                        >
+                            Update User SKU
+                        </button>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,17 @@
 import totalBalance from "./hooks/totalBalance";
+import listed from './hooks/listed'
+import totalPayout from "./hooks/totalPayout";
 
 const UserBalance = (props) => {
 
     const displayUser = props.displayUser
+
+    const totalFees = () => {
+        if(displayUser){
+            let result = totalBalance(displayUser) - displayUser.currentbalance;
+            return result;
+        }
+    }
 
     console.log(displayUser);
 
@@ -14,7 +23,7 @@ const UserBalance = (props) => {
                     Current Balance:
                 </div>
                 <div className="col">
-                    $ {totalBalance(displayUser)}
+                    $ {displayUser.currentbalance.toFixed(2)}
                 </div>
             </div>
             <div className="row">
@@ -22,7 +31,7 @@ const UserBalance = (props) => {
                     Cards Sold Total:
                 </div>
                 <div className="col">
-                    $ {totalBalance(displayUser)}
+                    $ {totalBalance(displayUser).toFixed(2)}
                 </div>
             </div>
             <div className="row">
@@ -30,7 +39,7 @@ const UserBalance = (props) => {
                     Payouts Total:
                 </div>
                 <div className="col">
-                    $ {totalBalance(displayUser)}
+                    $ {totalPayout(displayUser).toFixed(2)}
                 </div>
             </div>
             <div className="row">
@@ -38,15 +47,66 @@ const UserBalance = (props) => {
                     Total Fees Collected:
                 </div>
                 <div className="col">
-                    $
+                    $ {totalFees().toFixed(2)}
+                </div>
+            </div>
+            <div className="row">
+                <div className="col">
+                    Total Cashouts:
+                </div>
+                <div className="col">
+                    $ 
+                </div>
+            </div>
+            <div className="row">
+                <div className="col">
+                </div>
+                <div className="col">
+                    <button className="btn btn-users-action">Manage Cashout Transactions</button>   
                 </div>
             </div>
         </div>
         <div className="row">
             <div className="col">
-                Sale Transctions
+                Sales Transctions
                 <div className="user-display-info">
-                    
+                    {displayUser && displayUser.balance.map((i) => {
+                        return(
+                            <>
+                                <div className="transactions">
+                                    <div className="row">
+                                        <div className="col transactions-title">
+                                            {i.title}
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col">
+                                            Date: 
+                                        </div>
+                                        <div className="col">
+                                            {listed(i.date)}
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col">
+                                            Price Total
+                                        </div>
+                                        <div className="col">
+                                            Payout Total
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col">
+                                            $ {i.price.toFixed(2)}  
+                                        </div>
+                                        <div className="col">
+                                            $ {i.payout.toFixed(2)}
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        )
+                    })}
                 </div>
             </div>
             <div className="col">

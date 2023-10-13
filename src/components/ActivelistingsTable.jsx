@@ -44,114 +44,61 @@ const Table = ({currentRecords}) => {
                                                     <div className='col'>
                                                         <div className='row'>
                                                             <div className='col d-flex justify-content-center'>
-                                                                {/* <Element
-                                                                    class='listing-details' 
-                                                                title= {<a href={data.itemurl} target="_blank">View in  <img src={ebayLogo} style={{height:"1.2rem", width:"auto"}} /> </a>}
-                                                                />     */}
                                                                 <div className="card listing-box">
                                                                     <div className="card-header listing-header">
                                                                         View on
                                                                     </div>
-                                                                    <div className="card-body listing-body">
+                                                                    <div className="card-body listing-body text-body-secondary">
                                                                     <a href={data.itemurl} target="_blank"><img src={ebayLogo} style={{height:"1.5rem", width:"auto"}} /> </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div className='col d-flex justify-content-center'>
-                                                                {/* <Element
-                                                                    class='listing-details' 
-                                                                    title='Listed on:'
-                                                                    subtitle={( 
-                                                                        <>
-                                                                            {listed(data.starttime)}
-                                                                        </> 
-                                                                    )}
-                                                                /> */}
                                                                 <div className="card listing-box">
                                                                     <div className="card-header listing-header">
                                                                         Listed on
                                                                     </div>
-                                                                    <div className="card-body listing-body">
+                                                                    <div className="card-body listing-body text-body-secondary">
                                                                         {listed(data.starttime)}
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div className='col d-flex justify-content-center'>
-                                                                {/* <Element
-                                                                    class='listing-details' 
-                                                                    title='Bids:'
-                                                                    subtitle={( 
-                                                                            <>
-                                                                                {data.bidcount}
-                                                                            </>
-                                                                        )}
-                                                                /> */}
                                                                 <div className="card listing-box">
                                                                     <div className="card-header listing-header">
                                                                         Bids
                                                                     </div>
-                                                                    <div className="card-body listing-body">
+                                                                    <div className="card-body listing-body text-body-secondary">
                                                                         {data.bidcount}
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div className='col d-flex justify-content-center'>
-                                                                {/* <Element
-                                                                    class='listing-details' 
-                                                                    title='Watching:'
-                                                                    subtitle={(  
-                                                                        <>
-                                                                            {data.watchcount}
-                                                                        </> 
-                                                                        )}
-                                                                /> */}
                                                                 <div className="card listing-box">
                                                                     <div className="card-header listing-header">
                                                                         Watching:
                                                                     </div>
-                                                                    <div className="card-body listing-body">
+                                                                    <div className="card-body listing-body text-body-secondary">
                                                                         {data.watchcount}
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div className='col d-flex justify-content-center'>
-                                                                {/* <Element
-                                                                    class='listing-details' 
-                                                                    title='Time Left:'
-                                                                    subtitle={( 
-                                                                            <>
-                                                                                <span className='time-left'>
-                                                                                    {time(data.timeleft)}
-                                                                                </span>
-                                                                            </>
-                                                                    )}
-                                                                /> */}
                                                                 <div className="card listing-box">
                                                                     <div className="card-header listing-header">
                                                                         Time Left
                                                                     </div>
-                                                                    <div className="card-body listing-body">
+                                                                    <div className="card-body listing-body text-body-secondary">
                                                                         {time(data.timeleft)}
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div className='col d-flex justify-content-center'>
-                                                                {/* <Element
-                                                                    class='listing-details'
-                                                                    title='Current Price:' 
-                                                                    subtitle={( 
-                                                                        <>
-                                                                            <span className='price'>
-                                                                                ${data.currentprice}
-                                                                            </span>
-                                                                        </>
-                                                                    )}
-                                                                /> */}
                                                                 <div className="card listing-box">
                                                                     <div className="card-header listing-header">
                                                                         Current Price:
                                                                     </div>
-                                                                    <div className="card-body listing-body">
+                                                                    <div className="card-body listing-body text-body-secondary">
                                                                         $ {data.currentprice}
                                                                     </div>
                                                                 </div>

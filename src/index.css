@@ -204,6 +204,8 @@ body {
   padding: 1rem;
   background-color: rgba(255,255,255, 0.2);
   border-radius: 1rem;
+  overflow: auto;
+  max-height: 30rem;
 }
 .user-display-info > *{
   font-weight: 300;
@@ -224,8 +226,7 @@ body {
 .sku::placeholder{
   color: #CFE6FC;
 }
-
-.btn-sku{
+.btn-users-action{
   border: none;
   box-shadow: none;
   background: none;
@@ -235,7 +236,26 @@ body {
   height: 2.5rem;
   width: inherit;
 }
-
+.btn-users-action:active{
+  border: none;
+  box-shadow: none;
+  background: #CFE6FC !important;
+  color: #474F57 !important;
+  outline: solid 1px #CFE6FC;
+  border-radius: 0.75rem;
+  height: 2.5rem;
+  width: inherit;
+}
+.btn-users-action:focus{
+  border: none;
+  box-shadow: none;
+  background: #CFE6FC !important;
+  color: #474F57 !important;
+  outline: solid 1px #CFE6FC;
+  border-radius: 0.75rem;
+  height: 2.5rem;
+  width: inherit;
+}
 .btn-user-page {
   margin-top: 2rem;
   /* margin: 0.5rem; */
@@ -403,6 +423,7 @@ table tbody tr:last-child td:last-child {
 .listing-box{
   box-shadow: 2px 7px 15px -2px rgb(8, 19, 30);
   background-color: rgba(255,255,255, 0.3);
+  font-weight: 500;
   border-radius: 10px;
   text-align: center;
   height: 6.7rem;
@@ -413,4 +434,19 @@ table tbody tr:last-child td:last-child {
 .listing-box:hover{
   background-color: rgba(255,255,255, 0.5);
   transform: scale(1.05);
+}
+.transactions{
+  border: #CFE6FC solid 1px;
+  border-radius: 5px;
+  padding-inline-start: 2px;
+}
+.transactions-title{
+  /* white-space: nowrap; */
+  overflow: hidden;
+  font-size: small;
+  margin-bottom: 5px;
+}
+.listing-body{
+  font-weight: 500;
+  font-size: 1.2rem;
 }
