@@ -15,11 +15,17 @@ connectDB();
 // cors policy
 app.use(cors());
 
+// create application/json parser
+var jsonParser = bodyParser.json({limit: "5mb"});
+app.use(jsonParser);
+
 // =====routes===== 
 app.use('/getusers', require('./routes/getUsersRoute'));
 app.use('/active', require('./routes/getActiveRoute'));
 app.use('/pending', require('./routes/getPendingRoute'));
 app.use('/sold', require('./routes/getSoldRoute'));
+app.use('/updatesku', require('./routes/updateSkuRoute'));
+app.use('/updateuser', require('./routes/updateUserRoute'));
 
 // =========Setting up Server om port 8090============
 app.listen(8090, () => {
