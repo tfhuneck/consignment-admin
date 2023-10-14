@@ -16,7 +16,6 @@ const updateUser = async (req, res, next) => {
     const activeItemSub     = getUser.activeitems;
     const balanceSub        = getUser.balance;
     const sku               = getUser.skucode;
-    const currentBalance    = getUser.currentbalance;
     const soldData          = await SoldItem.find();
     const pendingData       = await PendingItem.find();
     const listingData       = await Listing.find();

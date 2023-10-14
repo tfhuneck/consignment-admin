@@ -235,6 +235,11 @@ body {
   border-radius: 0.75rem;
   height: 2.5rem;
   width: inherit;
+  text-decoration: none;
+}
+.btn-users-action:hover{
+  background: #CFE6FC !important;
+  color: #474F57 !important;
 }
 .btn-users-action:active{
   border: none;
@@ -436,9 +441,10 @@ table tbody tr:last-child td:last-child {
   transform: scale(1.05);
 }
 .transactions{
+  background-color: rgba(29,44,57, 0.7);
   border: #CFE6FC solid 1px;
   border-radius: 5px;
-  padding-inline-start: 2px;
+  padding: 5px;
 }
 .transactions-title{
   /* white-space: nowrap; */
@@ -449,4 +455,10 @@ table tbody tr:last-child td:last-child {
 .listing-body{
   font-weight: 500;
   font-size: 1.2rem;
+}
+.transaction-container{
+  background-color: #474F57;
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1rem;
 }

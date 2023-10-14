@@ -26,6 +26,7 @@ app.use('/pending', require('./routes/getPendingRoute'));
 app.use('/sold', require('./routes/getSoldRoute'));
 app.use('/updatesku', require('./routes/updateSkuRoute'));
 app.use('/updateuser', require('./routes/updateUserRoute'));
+app.use('/addcashout', require('./routes/postCashoutRoute'));
 
 // =========Setting up Server om port 8090============
 app.listen(8090, () => {
