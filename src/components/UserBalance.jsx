@@ -1,6 +1,7 @@
 import totalBalance from "./hooks/totalBalance";
 import listed from './hooks/listed'
 import totalPayout from "./hooks/totalPayout";
+import totalCashouts from "./hooks/totalCashouts";
 import { Link } from "react-router-dom";
 
 const UserBalance = (props) => {
@@ -9,7 +10,7 @@ const UserBalance = (props) => {
 
     const totalFees = () => {
         if(displayUser){
-            let result = totalBalance(displayUser) - displayUser.currentbalance;
+            let result = totalBalance(displayUser) - totalPayout(displayUser);
             return result;
         }
     }
@@ -56,7 +57,7 @@ const UserBalance = (props) => {
                     Total Cashouts:
                 </div>
                 <div className="col">
-                    $ 
+                    $ {totalCashouts(displayUser).toFixed(2)}
                 </div>
             </div>
             <div className="row">
@@ -115,7 +116,46 @@ const UserBalance = (props) => {
             <div className="col">
                 Cashout Transactions
                 <div className="user-display-info">
-
+                {displayUser && displayUser.cashouts.map((i) => {
+                        return(
+                            <>
+                                <div className="transactions">
+                                    <div className="row">
+                                        <div className="col">
+                                            Type:
+                                        </div>
+                                        <div className="col">
+                                            {i.type}
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col">
+                                            Amount: 
+                                        </div>
+                                        <div className="col">
+                                            $ {i.amount.toFixed(2)}
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col">
+                                            Date:
+                                        </div>
+                                        <div className="col">
+                                            {i.date}
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col">
+                                            Comment:
+                                        </div>
+                                        <div className="col">
+                                            {i.comment}
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        )
+                    })}
                 </div>
             </div>
         </div>
