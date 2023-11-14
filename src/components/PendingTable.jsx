@@ -15,7 +15,7 @@ const PendingTable = ({currentRecords}) => {
     const [ image, setImage ]                   = useState();
     useEffect(() => {
         async function getImages(url) {
-            await axios.post( serverUrl + '/soldimage', {
+            await axios.post('/soldimage', {
             imageUrl: url
             })
             .then(function(res) {

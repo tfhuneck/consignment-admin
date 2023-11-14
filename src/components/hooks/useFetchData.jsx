@@ -11,7 +11,7 @@ export const useFetchData = (url) => {
 
     useEffect(() => {
         async function fetchData(){
-            await axios.get(serverUrl + url,
+            await axios.get(url,
                 {params:{
                     userId
                 }})

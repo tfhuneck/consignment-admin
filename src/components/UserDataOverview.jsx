@@ -25,7 +25,7 @@ const UserDataOverview = (props) => {
         let userId = displayUser.userid;
         console.log(sku + userId)
         if (sku){
-            await axios.post(serverUrl + '/updatesku', {
+            await axios.post('/updatesku', {
                 'userid' : userId,
                 'sku' : sku,
             })
