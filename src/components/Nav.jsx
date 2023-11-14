@@ -18,7 +18,7 @@ const Nav = () => {
                 </div>
                 <div className='card-body d-flex flex-column justify-content-evenly'>
                     <div className='row justify-content-center'>
-                        <Link className='user-nav-link' to='/'>
+                        <Link className='user-nav-link' to='/dash'>
                             <div className='col'>
                                 <svg 
                                     className='user-nav-icn'
