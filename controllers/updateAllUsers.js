@@ -4,6 +4,7 @@ const serverUrl     = 'http://localhost:8090' || PORT
 const PORT          = process.env.PORT || 8090; // Enviroment Port
 
 const updateAllUsers = async (req, res, next) => {
+    console.log('updating all users ...')
     let Users = []
     await axios.get(serverUrl + '/getusers')
         .then((res) => Users = res.data)
@@ -33,4 +34,10 @@ const updateAllUsers = async (req, res, next) => {
     }
 }
 
-module.exports = updateAllUsers;
+const apiCall = () => {
+    setInterval(() => updateAllUsers(),
+        3600000
+    )
+}
+
+module.exports = apiCall;

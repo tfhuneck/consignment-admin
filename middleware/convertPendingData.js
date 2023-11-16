@@ -1,7 +1,7 @@
 const convert       = require('xml-js');
 
 const convertData = async (req, res, next) => {
-    const rawData           = req.body.soldRaw;
+    const rawData           = req.body.rawData;
     const soldData          = JSON.parse(convert.xml2json(rawData, {compact: true, spaces: 2, object: true }));
     const sorted            = soldData.GetMyeBaySellingResponse.SoldList.OrderTransactionArray.OrderTransaction
     const transactionsArray = [];
@@ -43,9 +43,9 @@ const convertData = async (req, res, next) => {
             })
         })
 
-    const pendingFiltered = postDataArray.filter((i) => i.paymentstatus === 'NotPaid');
+    // const pendingFiltered = postDataArray.filter((i) => i.paymentstatus === 'NotPaid');
     
-    req.convertedData = pendingFiltered;
+    req.convertedData = postDataArray;
 
     next()
 }
