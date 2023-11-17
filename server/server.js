@@ -5,11 +5,11 @@ const path              = require('path');
 const cors              = require('cors');
 const axios             = require('axios');
 const mongoose          = require('mongoose');
-const connectDB         = require('./config/dbConn');
+const connectDB         = require('../../config/dbConn');
 const updateActive      = require('./services/ebayActiveListApi');
 const updateSold        = require('./services/ebaySoldListApi');
 const updatePending        = require('./services/ebayPendingListApi');
-const updateAllUsers    = require('./controllers/updateAllUsers');
+const updateAllUsers    = require('../../controllers/updateAllUsers');
 
 // .env config
 require('dotenv').config();
