@@ -5,7 +5,7 @@ export const useUserList = (userData) => {
     
     const [ displayUser, setDisplayUser ]   = useContext(UserContext);
 
-    // console.log(displayUser);
+    console.log(displayUser);
     
     useEffect(() => {
         userData && !displayUser ? setDisplayUser(userData[0]) : setDisplayUser(displayUser)

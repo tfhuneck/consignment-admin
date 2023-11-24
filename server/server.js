@@ -5,11 +5,11 @@ const path              = require('path');
 const cors              = require('cors');
 const axios             = require('axios');
 const mongoose          = require('mongoose');
-const connectDB         = require('../../config/dbConn');
+const connectDB         = require('./config/dbConn');
 const updateActive      = require('./services/ebayActiveListApi');
 const updateSold        = require('./services/ebaySoldListApi');
-const updatePending        = require('./services/ebayPendingListApi');
-const updateAllUsers    = require('../../controllers/updateAllUsers');
+const updatePending     = require('./services/ebayPendingListApi');
+const updateAllUsers    = require('./controllers/updateAllUsers');
 
 // .env config
 require('dotenv').config();
@@ -28,12 +28,13 @@ var jsonParser = bodyParser.json({limit: "5mb"});
 app.use(jsonParser);
 
 // =====routes===== 
-app.use('/static', express.static(path.join(__dirname, 'build' , 'static')));
+app.use(express.static(path.join(__dirname, 'build')));
 app.use('/active', require('./routes/activeListingsRoute'));
 app.use('/clearactive', require('./routes/clearActiveRoute'));
 app.use('/clearpending', require('./routes/clearPendingRoute'));
 app.use('/sold', require('./routes/soldRoute'));
 app.use('/pending', require('./routes/pendingRoute'));
+app.use('/getuser', require('./routes/getUserRoute'));
 app.use('/getusers', require('./routes/getUsersRoute'));
 app.use('/updatesku', require('./routes/updateSkuRoute'));
 app.use('/updateuser', require('./routes/updateUserRoute'));  // Triggers update User function that calls several update function to update User profile collection 
@@ -43,11 +44,13 @@ app.use('/updateuserpending', require('./routes/updateUserPendingRoute'));  // u
 app.use('/updateuserbalance', require('./routes/updateUserBalanceRoute'));  // updates user's balance / payout records
 app.use('/updateusercurrentbalance', require('./routes/updateUserCurrentBalanceRoute'));  // calculates and updates user's current balance
 app.use('/addcashout', require('./routes/postCashoutRoute'));  // add cashout transaction to userprofile 
+app.use('/deletecashout', require('./routes/deleteCashoutRoute'));  // delete cashout transaction from userprofile 
 app.use('/ebaynotification', require('./routes/ebayNotificationRoute'))  // ebay notification challenge code route
 app.use('/ebayauth', require('./routes/ebayAuthRoute'));  // ebay OAuth authorization code grant flow
 app.use('/ebayauthconfirm', require('./routes/ebayGetUserTokenRoute')) // ebay user authorization redirect endpoint 
 app.use('/usertoken', require('./routes/userTokenRoute'))  // save minted Usertoken to db and fetch userToken and RefreshToken
 app.use('/refreshtoken', require('./routes/ebayRefreshTokenRoute')) //  ebay refresh token 
+app.use('/request', require('./routes/requestRoute'));
 
 // serving static files with page routes from index files
 app.get(['/', '/dash', '/users', '/listings', '/transactions'], (req, res) => {
@@ -55,16 +58,16 @@ app.get(['/', '/dash', '/users', '/listings', '/transactions'], (req, res) => {
 });
 
 // endpoint to fetch active listings from ebay every 10min
-updateActive();
+// updateActive();
 
 // endpoint to fetch sold listings from ebay every 1h
-updateSold();
+// updateSold();
 
 // endpoint to fetch pending listings from ebay every 1h
-updatePending();
+// updatePending();
 
 // endpoint to update all users evey 1h 
-updateAllUsers();
+// updateAllUsers();
 
 // =========Setting up Server om port 8090============
 app.listen(PORT, () => {

@@ -1,8 +1,9 @@
 const express               = require('express');
 const router                = express.Router();
-const updateSku             = require('../controllers/updateSku');
+const GetUser              = require('../controllers/getUser');
 
 router.route('/')
-    .post(updateSku)
+    .get(GetUser)
 
 module.exports = router;
+

@@ -112,7 +112,7 @@ const UserDataOverview = (props) => {
                     <div className="col">
                         Balance: 
                     </div>
-                    <div className="col">
+                    <div className="col balance">
                         ${displayUser && displayUser.currentbalance.toFixed(2)}
                     </div>
                 </div> <br />

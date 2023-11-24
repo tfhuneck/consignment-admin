@@ -229,7 +229,7 @@ body {
   background-color: rgba(255,255,255, 0.28);
   border-radius: 10px;
   text-align: center;
-  height: 4rem;
+  height: 5.5rem;
   width: initial;
   margin: 0.5rem 0.75rem 0.5rem 0.75rem;
   transition: all 0.5s;
@@ -276,7 +276,7 @@ body {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   padding: 1rem;
-  background-color: rgba(255,255,255, 0.2);
+  background-color:#474F57;
   border-radius: 1rem;
   overflow: auto;
   max-height: 30rem;
@@ -540,4 +540,57 @@ table tbody tr:last-child td:last-child {
   border-radius: 1rem;
   text-align: center;
   padding: 1rem;
+  margin-top: 1rem;
+}
+.header{
+  margin-top: 1rem;
+}
+.requests-box{
+  margin-top: 1rem;
+  display: block !important;
+  text-align: start;
+  background-color: #1d2c39;
+  border-radius: 10px;
+  height: 80vh;
+  width: inherit;
+  overflow: auto;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+}
+.request-display{
+  margin-top: 4rem;
+  padding: 1rem;
+  background-color:#1d2c39;
+  border-radius: 10px;
+  color: #CFE6FC;
+  font-weight: 400;
+  outline: solid 1px #CFE6FC;
+}
+.request-display-value{
+  padding: 0.5rem;
+  background-color:#16222c;
+  border-radius: 5px;
+  outline: solid 0.5px #CFE6FC;
+}
+.request-display-key{
+  padding: 0.5rem;
+  border-radius: 5px;
+  outline: solid 0.5px #CFE6FC;
+}
+.request-display-buttons{
+  margin-top: 1rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.request-button{
+  margin: 1rem;
+  width: 10rem;
+}
+.balance{
+  font-weight: 500;
+  color:rgb(2, 208, 2);
+}
+.withdraw{
+  font-weight: 500;
+  color:#d50924;
 }

@@ -101,7 +101,7 @@ const Nav = () => {
                         </Link>
                     </div>
                     <div className='row justify-content-center'>
-                        <Link className='user-nav-link' to='/'>
+                        <Link className='user-nav-link' to='/cashouts'>
                             <div className='col'>
                                 <svg
                                     className='user-nav-icn'

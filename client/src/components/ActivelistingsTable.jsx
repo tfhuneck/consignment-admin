@@ -5,18 +5,6 @@ import time from './hooks/time'
 
 const Table = ({currentRecords}) => {
 
-    // async function getImages(url) {
-    //     await axios.post(serverUrl + '/getimage', {
-    //       imageUrl: url
-    //     })
-    //     .then(function(res) {
-    //         console.log(res)
-    //     })
-    //     .catch(function (error) {
-    //         console.log(error);
-    //       });
-    // }
-
     return (
         <>
             {currentRecords.map((data, key) => {
@@ -99,7 +87,7 @@ const Table = ({currentRecords}) => {
                                                                         Current Price:
                                                                     </div>
                                                                     <div className="card-body listing-body text-body-secondary">
-                                                                        $ {data.currentprice}
+                                                                        $ {data.currentprice.toFixed(2)}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -119,7 +107,7 @@ const Table = ({currentRecords}) => {
                         </td>
                         <td>
                             <span className='price'>
-                                $ {data.currentprice}
+                                $ {data.currentprice.toFixed(2)}
                             </span>
                         </td>
                     </tr>

@@ -1,6 +1,6 @@
 const User          = require('../model/User');
 const totalBalance  = require('../modules/totalBalance');
-const totalCashouts = require('../modules/totalCashouts')
+const totalCashouts = require('../modules/totalCashouts');
 
 const CashoutTransaction = async(req, res) => {
     
@@ -32,7 +32,7 @@ const CashoutTransaction = async(req, res) => {
         await findUser.save();
         await findUser.set({currentbalance: newBalance});
         await findUser.save();
-        console.log(findUser.name + 'current balance updated');
+        console.log(findUser.name + ' current balance updated');
      } catch (error) {
          console.log(error) 
      }

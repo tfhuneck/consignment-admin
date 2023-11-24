@@ -35,7 +35,8 @@ const updateAllUsers = async (req, res, next) => {
 }
 
 const apiCall = () => {
-    setInterval(() => updateAllUsers(),
+    setInterval(() => 
+        setTimeout(() =>  updateAllUsers(), 300000),
         3600000
     )
 }

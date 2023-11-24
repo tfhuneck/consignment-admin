@@ -21,10 +21,10 @@ const UserBalance = (props) => {
         <>
         <div className="user-display-info">
             <div className="row">
-                <div className="col">
+                <div className="col balance">
                     Current Balance:
                 </div>
-                <div className="col">
+                <div className="col balance">
                     $ {displayUser.currentbalance.toFixed(2)}
                 </div>
             </div>
@@ -45,10 +45,10 @@ const UserBalance = (props) => {
                 </div>
             </div>
             <div className="row">
-                <div className="col">
+                <div className="col withdraw">
                     Total Fees Collected:
                 </div>
-                <div className="col">
+                <div className="col withdraw">
                     $ {totalFees().toFixed(2)}
                 </div>
             </div>
@@ -62,11 +62,11 @@ const UserBalance = (props) => {
             </div>
             <div className="row">
                 <div className="col">
-                </div>
-                <div className="col">
                     <Link to='/transactions' >
                         <button className="btn btn-users-action">Manage Cashout Transactions</button>   
                     </Link>
+                </div>
+                <div className="col">
                 </div>
             </div>
         </div>
@@ -132,7 +132,7 @@ const UserBalance = (props) => {
                                         <div className="col">
                                             Amount: 
                                         </div>
-                                        <div className="col">
+                                        <div className="col withdraw">
                                             $ {i.amount.toFixed(2)}
                                         </div>
                                     </div>
