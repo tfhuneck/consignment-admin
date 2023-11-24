@@ -1,5 +1,5 @@
 import Container from 'react-bootstrap/Container';
-import firebaseAuth from '../firebase-config';
+import firebaseAuth from '../config/firebase-config';
 import { useContext, useEffect } from 'react';
 import { useNavigate} from 'react-router-dom';
 import { AuthContext } from '../App';

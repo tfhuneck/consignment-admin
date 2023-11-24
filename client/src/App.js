@@ -7,7 +7,8 @@ import Login from "./components/Login";
 import Users from "./components/Users";
 import UserListings from "./components/UserListings";
 import CashoutTransactions from "./components/UserTransactions";
-import firebaseAuth from "./firebase-config";
+import firebaseAuth from "./config/firebase-config";
+import CashoutRequests from "./components/Requests";
 
 
 export const UserContext = createContext();
@@ -61,6 +62,7 @@ function App() {
                 <Route path="/users" element={ <Users/> } /> 
                 <Route path='/listings' element={ < UserListings />} />
                 <Route path='/transactions' element={ < CashoutTransactions />} />
+                <Route path='/cashouts' element={ < CashoutRequests />} />
               </Routes>
             </div>
           </BrowserRouter>

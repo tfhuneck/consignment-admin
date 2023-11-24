@@ -17,7 +17,6 @@ const Home = () => {
                         <button className="btn btn-users-action home-dash-btns">Update Data Call</button>
                     </div>
                 </div>
-
             </div>
         </>
     )

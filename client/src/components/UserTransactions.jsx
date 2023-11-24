@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
+import { useFetchData } from "./hooks/useFetchData";
 import axios from "axios";
 
 const CashoutTransactions = () => {
@@ -8,7 +9,9 @@ const CashoutTransactions = () => {
     // User Context
     const serverUrl                                     = 'http://localhost:8090' || `${process.env.REACT_APP_production_url}`;
     const [ displayUser, setDisplayUser ]               = useContext(UserContext);
-    const [ transactionResult, SetTransactionResult ]   = useState('')
+    const [ transactionResult, SetTransactionResult ]   = useState('');
+    let userId = displayUser? displayUser.userid : null;
+    
     const transaction = {
         date: '',
         type: 'break credit',
@@ -16,7 +19,26 @@ const CashoutTransactions = () => {
         comment: ''
     };
 
-    const submitTransaction = () => {
+    const updateUser = async () => {
+        await axios.get(
+            serverUrl +
+            '/getuser',
+            {params:{
+                userId
+            }})
+            .then(res => {
+                console.log(res.data);
+                let data = (res.data);
+                setDisplayUser(data)
+            })
+            .catch(err => console.log(err));
+    }
+
+    useEffect(() => {
+        console.log('renrender triggered by displayUser')
+    }, [displayUser, setDisplayUser, updateUser])
+
+    const submitTransaction = async () => {
         const date      = document.getElementById('date');
         const type      = document.getElementById('type');
         const amount    = document.getElementById('amount');
@@ -24,7 +46,9 @@ const CashoutTransactions = () => {
         console.log(transaction)
         
         if(displayUser && transaction.amount){
-            axios.post(serverUrl + '/addcashout', {
+            await axios.post(
+                serverUrl + 
+                '/addcashout', {
                 displayUser,
                 transaction
             })
@@ -34,13 +58,30 @@ const CashoutTransactions = () => {
                 type.value = 'break credit';
                 amount.value = '';
                 comment.value ='';
-                SetTransactionResult('Success, Transaction has been added')
+                SetTransactionResult('Success, Transaction has been added');
+                updateUser();
             })
             .catch(err => {
                 console.log(err);
                 SetTransactionResult('An error has occured')
             });
         }
+    }
+
+    const deleteTransaction = async (id) => {
+        await axios.post(
+            serverUrl + 
+            '/deletecashout', {
+                displayUser,
+                id
+            }
+        )
+        .then((res) => {
+            console.log('transaction deleted');
+            console.log(res.data);
+            updateUser();
+        })
+        .catch((err) => console.log(err))
     }
 
     return (
@@ -55,7 +96,7 @@ const CashoutTransactions = () => {
                         fill="currentColor" 
                         viewBox="0 0 16 16"
                     >
-                        <path  className="back-svg"  fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                        <path  className="back-svg"  fillRule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
                     </svg>
                     <span className="back-text">Back</span>
                 </Link>
@@ -69,7 +110,6 @@ const CashoutTransactions = () => {
                     <div className="row">
                         <div className="col">
                             Add Cashout Transaction
-                            <br /><br />
                             <div className="transaction-container">
                                 <label htmlFor="date">Transaction Date</label>
                                 <div>
@@ -80,9 +120,9 @@ const CashoutTransactions = () => {
                                     <select type="form-select drop-form" name="type" id="type" className="form-select" onChange={(e) => transaction.type = e.target.value}>
                                         <option value={'break credit'}>Break Credit</option>
                                         <option value={'paypal'}>Paypal</option>
-                                        <option value={'cashapp'}>Cashapp</option>
+                                        <option value={'zelle'}>Zelle</option>
                                         <option value={'venmo'}>Venmo</option>
-                                        <option value={'bank transfer'}>Bank Transfer</option>
+                                        <option value={'check'}>Check</option>
                                     </select>
                                 </div>
                                 <label htmlFor="amount">Transaction Amount</label>
@@ -110,6 +150,20 @@ const CashoutTransactions = () => {
                                 return(
                                     <>
                                         <div className="transactions">
+                                            <div className="row">
+                                                <div className="col"></div>
+                                                <div className="col"></div>
+                                                <div className="col d-flex justify-content-end">
+                                                    <div>
+                                                        <button 
+                                                            className="btn btn-outline-danger"
+                                                            onClick={()=> deleteTransaction(i._id)}
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div className="row">
                                                 <div className="col">
                                                     Type:

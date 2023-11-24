@@ -13,11 +13,15 @@ const UsersList = ({userData, setDisplayUser}) => {
                             onClick={() => setDisplayUser(userData[key])}
                         >
                             <span className="users-list-name" >
-                                user: {user.name} 
+                                {user.name} 
                             </span> <br />
                             <span className="users-list-name" >
-                                email: {user.email}
+                                sku: {user.skucode}
+                            </span> <br />
+                            <span className="users-list-name" >
+                                Email: {user.email}
                             </span>
+                            
                         </div>
                     </>
                 )
