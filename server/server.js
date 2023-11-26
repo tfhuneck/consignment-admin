@@ -33,6 +33,8 @@ app.use('/active', require('./routes/activeListingsRoute'));
 app.use('/clearactive', require('./routes/clearActiveRoute'));
 app.use('/clearpending', require('./routes/clearPendingRoute'));
 app.use('/sold', require('./routes/soldRoute'));
+app.use('/unsold', require('./routes/unsoldRoute'));
+app.use('/sold', require('./routes/soldRoute'));
 app.use('/pending', require('./routes/pendingRoute'));
 app.use('/getuser', require('./routes/getUserRoute'));
 app.use('/getusers', require('./routes/getUsersRoute'));
@@ -40,6 +42,7 @@ app.use('/updatesku', require('./routes/updateSkuRoute'));
 app.use('/updateuser', require('./routes/updateUserRoute'));  // Triggers update User function that calls several update function to update User profile collection 
 app.use('/updateuseractive', require('./routes/updateUserActiveRoute'));  // updates user's active listings
 app.use('/updateusersold', require('./routes/updateUserSoldRoute'));  // updates user's sold listings
+app.use('/updateuserunsold', require('./routes/updateUserUnSoldRoute'));  // updates user's unsold listings
 app.use('/updateuserpending', require('./routes/updateUserPendingRoute'));  // updates user's pending listings
 app.use('/updateuserbalance', require('./routes/updateUserBalanceRoute'));  // updates user's balance / payout records
 app.use('/updateusercurrentbalance', require('./routes/updateUserCurrentBalanceRoute'));  // calculates and updates user's current balance

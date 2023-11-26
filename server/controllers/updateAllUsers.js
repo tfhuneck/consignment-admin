@@ -34,11 +34,13 @@ const updateAllUsers = async (req, res, next) => {
     }
 }
 
-const apiCall = () => {
-    setInterval(() => 
-        setTimeout(() =>  updateAllUsers(), 300000),
-        3600000
-    )
-}
+// const apiCall = () => {
+//     setInterval(() => 
+//         setTimeout(() =>  updateAllUsers(), 300000),
+//         3600000
+//     )
+// }
 
-module.exports = apiCall;
+updateAllUsers()
+
+// module.exports = apiCall;
