@@ -30,6 +30,14 @@ const updateUser = async (req, res, next) => {
         .catch((err) => console.log(err));
     }
 
+    const updateUnSoldItems = async () => {  
+        await axios.get(serverUrl + '/updateuserunsold', {
+            params: { userId }
+        })
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log(err));
+    }
+
     const updateUserBalance = async () => {
         await axios.get(serverUrl + '/updateuserbalance', {
             params: { userId }
@@ -50,6 +58,7 @@ const updateUser = async (req, res, next) => {
     await updateActiveItems();
     await updateSoldItems();
     await updatePendigItems();
+    await updateUnSoldItems();
     await updateUserBalance();
     await updateCurrentBalance();
 
