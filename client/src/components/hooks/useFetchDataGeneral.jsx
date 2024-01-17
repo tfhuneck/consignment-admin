@@ -12,7 +12,7 @@ export const useFetchDataGeneral = (url, trigger) => {
     useEffect(() => {
         async function fetchData(){
             await axios.get(
-                serverUrl +
+                // serverUrl +
                 url,
                 {params:{
                     userAuth

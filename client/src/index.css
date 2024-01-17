@@ -164,8 +164,12 @@ body {
   transition: all 1s ease;
   align-items: center;
 }
+.container-home{
+  max-width: inherit;
+}
 .dash-headers{
   margin: 1rem;
+  max-width: inherit;
 }
 .dash-header{
   background-color: #1d2c39;
@@ -254,7 +258,7 @@ body {
 .clear-search-home{
   position: absolute;
   right: 2.5rem;
-  top: 40.5rem;
+  top: 39.75rem;
   transition: all .4s;
 }
 .clear-search-home:hover{

@@ -28,7 +28,7 @@ const CashoutRequests = () => {
     const viewRequest = async (userId, cashoutReq) =>{
         let userData = {}
         await axios.get(
-            serverUrl +
+            // serverUrl +
             '/getUser',
             {params: {userId}}
         ) .then((res) => {  
@@ -51,7 +51,7 @@ const CashoutRequests = () => {
             comment: comment
         };
         await axios.post(
-            serverUrl + 
+            // serverUrl + 
             '/addcashout', {
             displayUser,
             transaction
@@ -67,7 +67,7 @@ const CashoutRequests = () => {
 
     const cancelRequest = async (requestId) => {
         await axios.put(
-            serverUrl +
+            // serverUrl +
             '/request',
             {params:{
                 requestId
