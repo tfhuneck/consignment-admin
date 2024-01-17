@@ -28,7 +28,7 @@ const CashoutTransactions = () => {
 
     const updateUser = async () => {
         await axios.get(
-            serverUrl +
+            // serverUrl +
             '/getuser',
             {params:{
                 userId
@@ -54,7 +54,7 @@ const CashoutTransactions = () => {
         
         if(displayUser && transaction.amount){
             await axios.post(
-                serverUrl + 
+                // serverUrl + 
                 '/addcashout', {
                 displayUser,
                 transaction
@@ -77,7 +77,7 @@ const CashoutTransactions = () => {
 
     const deleteTransaction = async (id) => {
         await axios.post(
-            serverUrl + 
+            // serverUrl + 
             '/deletecashout', {
                 displayUser,
                 id
