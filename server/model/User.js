@@ -4,11 +4,12 @@ const userSchema = new mongoose.Schema({
         userid: {type: String, default: null},
         name: {type: String, default: null},
         email: {type: String, default: null},
-        phone: {type: Number, default: null},
+        phone: {type: String, default: null},
         address: {type: String, default: null},
         avatar: { type: String, default: null},
         skucode: {type: String, default: 'assign_sku'},
         currentbalance: {type: Number, default: 0},
+        rules: {type: Boolean, default: false},
         activeitems: [{
             itemid: {type: String, default: null}
         }],

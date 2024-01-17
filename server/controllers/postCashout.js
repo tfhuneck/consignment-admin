@@ -11,7 +11,7 @@ const CashoutTransaction = async(req, res) => {
     const updateBalance = () => {
         let payoutTotal     = totalBalance(findUser);
         let cashoutTotal    = totalCashouts(findUser);
-        let result = payoutTotal - cashoutTotal;
+        let result = (payoutTotal - cashoutTotal).toFixed(2);
         return result;
     }
     

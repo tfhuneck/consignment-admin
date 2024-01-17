@@ -1,59 +1,75 @@
+import Loading from './Loading';
 import Pagination from "./Pagination";
 import Search from "./Search";
 import Sort from "./Sort";
-import SoldTable from './SoldTable';
+import UnsoldTable from './UnsoldTable';
 import { useSortPay } from "./hooks/useSortPay";
 import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
-import { useFetchData } from "./hooks/useFetchData";
+import { useFetchData } from './hooks/useFetchData';
+import { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
 
+// Sold Elements Component
 function Unsold() {
 
+    // User ID from Route Params
+    const params = useParams();
+
     // fetch User Data hook
-    const {userData} = useFetchData('/unsold');
+    const {userData} = useFetchData('/unsold', params.userid);
 
     // Custom Search hook 
     const { searchValue, filteredData, clearSearch, handleSearch } = useSearch(userData);
 
     // Sorting Table hook
-    const {state, handleSortName, handleSortPrice, handleSortPay}  = useSortPay(filteredData);
+    const {state, handleSortName, handleSortPrice, handleSortPay, handleSortDate}  = useSortPay(filteredData);
 
     // Pagination Hook that also handles rerenders on search and Sorting table
     const { currentRecords, currentPage, setCurrentPage, nPages } = usePagination(state, userData, filteredData);
 
     // Condition to load table with products
-    if (currentRecords) {
+    const [ loaded, setLoaded ] = useState(false);
+
+    useEffect(() => {
+        if(userData) setLoaded(true)
+    }, [userData])
+
+    if(!loaded) {
+        return (
+            <> 
+                <Loading/>
+            </>
+        )
+    }
+    else {
         
         return (
             <>
-                <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} searchClass={'listings-search'} clearClass={'clear-search'} />
-                <table className='table table-dark table-striped table-hover'>
-                    <thead>
-                        <tr>
-                            <th className="list-header" scope='col'>
-                                Item
-                                <span onClick={handleSortName} >
-                                    <Sort sort={state.sortName}/>
-                                </span>
-                            </th>
-                            {/* <th className="list-header" scope='col'>
-                                Price Unsold
-                                <span onClick={handleSortPrice} >
-                                    <Sort sort={state.sortPrice}/>
-                                </span>
-                            </th>
-                            <th className="list-header" scope='col'>
-                                Payout
-                                <span onClick={handleSortPay} >
-                                    <Sort sort={state.sortPay} />
-                                </span>
-                            </th> */}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <SoldTable currentRecords={currentRecords} />
-                    </tbody>
-                </table>
+                <Search clearSearch={clearSearch} handleSearch={handleSearch} searchClass={'listings-search'} clearClass={'clear-search'} searchValue={searchValue} />
+                <div className='table-responsive-lg table-main'>
+                    <table className='table table-dark table-striped table-hover table-listings-mobile'>
+                        <thead>
+                            <tr>
+                                <th className="list-header" scope='col'>
+                                    Item
+                                    <span onClick={handleSortName} >
+                                        <Sort sort={state.sortName}/>
+                                    </span>
+                                </th>
+                                <th className="list-header" scope='col'>
+                                    Date
+                                    <span onClick={handleSortDate} >
+                                        <Sort sort={state.sortDate}/>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <UnsoldTable currentRecords={currentRecords} />
+                        </tbody>
+                    </table>
+                </div>
                 <div className="container">
                     <div className="row">
                         <div className="col d-flex justify-content-center">

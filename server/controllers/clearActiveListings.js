@@ -1,9 +1,9 @@
-const Listing       = require ('../model/Activelisting');
+const Listing       = require ('../model/ActiveCache');
 const clearListings = async (req, res, next) => {
     try{
         await Listing.deleteMany({}).exec();
-        console.log('DB cleared');
-        res.status(200).send('DB cleared');
+        console.log('Active Cache cleared');
+        res.status(200).send('Active Cache cleared');
     }catch (err){
         console.log(err);
     }

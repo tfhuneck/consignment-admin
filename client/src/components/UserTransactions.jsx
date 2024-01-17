@@ -1,10 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import { useContext, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useFetchData } from "./hooks/useFetchData";
 import axios from "axios";
 
 const CashoutTransactions = () => {
+
+    // User ID from Route Params
+    const params = useParams();
+
+    // fetch User Data hook
+    const {userData} = useFetchData('/getuser', params.userid);
 
     // User Context
     const serverUrl                                     = 'http://localhost:8090' || `${process.env.REACT_APP_production_url}`;
@@ -35,8 +42,8 @@ const CashoutTransactions = () => {
     }
 
     useEffect(() => {
-        console.log('renrender triggered by displayUser')
-    }, [displayUser, setDisplayUser, updateUser])
+        if(userData) setDisplayUser(userData)
+    }, [userData])
 
     const submitTransaction = async () => {
         const date      = document.getElementById('date');
@@ -120,7 +127,7 @@ const CashoutTransactions = () => {
                                     <select type="form-select drop-form" name="type" id="type" className="form-select" onChange={(e) => transaction.type = e.target.value}>
                                         <option value={'break credit'}>Break Credit</option>
                                         <option value={'paypal'}>Paypal</option>
-                                        <option value={'zelle'}>Zelle</option>
+                                        <option value={'ach'}>ACH Transfer</option>
                                         <option value={'venmo'}>Venmo</option>
                                         <option value={'check'}>Check</option>
                                     </select>

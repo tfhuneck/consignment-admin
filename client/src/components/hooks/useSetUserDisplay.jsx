@@ -8,6 +8,7 @@ export const useSetUserDisplay = () => {
     const balanceBtn                        = document.getElementById('balance');
 
     useEffect(() =>{
+        console.log('button display')
         setDisplay('overview')
     }, []);
 
@@ -29,7 +30,7 @@ export const useSetUserDisplay = () => {
                 balanceBtn.className = 'btn-user-page btn-active';
             }
         }
-    }, [display, setDisplay])
+    }, [display, setDisplay, listingsBtn])
 
     return [ display, setDisplay ];
 }

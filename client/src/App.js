@@ -16,7 +16,7 @@ export const AuthContext = createContext();
 
 function App() {
 
-  // Firebase Authorization
+  // Firebase Authorizationx
   const auth                      = getAuth(firebaseAuth);
   const [ userAuth, setUserAuth ] = useState(null);
 
@@ -32,10 +32,10 @@ function App() {
         }).catch(function(error) {
           // Handle error
         });
-        const userid = user.uid;
+        // const userid = user.uid;
         const userData = {
           idToken : token,
-          userid : userid
+          // userid : userid
         }
         setUserAuth(userData);
       } else {
@@ -50,20 +50,22 @@ function App() {
       <AuthContext.Provider value={[ userAuth, setUserAuth ]}>
         <UserContext.Provider value={[ displayUser, setDisplayUser ]} >
           <BrowserRouter>
-            <div className='container-fluid'>
-                  <div className='row'>
-                    <div className='col-sm-2 fixed-top one'>
-                      {userAuth && <Nav />}
-                    </div>
-                  </div>
-              <Routes>
-                <Route path="/" element={ <Login/> } /> 
-                <Route path="/dash" element={ <Home/> } /> 
-                <Route path="/users" element={ <Users/> } /> 
-                <Route path='/listings' element={ < UserListings />} />
-                <Route path='/transactions' element={ < CashoutTransactions />} />
-                <Route path='/cashouts' element={ < CashoutRequests />} />
-              </Routes>
+            <div className='container-fluid wrapper'>
+              <div className='row'>
+                <div className='col col-md-1 fixed-top one'>
+                  {userAuth && <Nav />}
+                </div>
+                <div className="col">
+                <Routes>
+                  <Route path="/" element={ <Login/> } /> 
+                  {userAuth && <Route path="/dash" element={ <Home/> } /> }
+                  {userAuth && <Route path="/users" element={ <Users/> } /> }
+                  {userAuth && <Route path='/listings/:userid' element={ < UserListings />} />}
+                  {userAuth && <Route path='/transactions/:userid' element={ < CashoutTransactions />} />}
+                  {userAuth && <Route path='/cashouts' element={ < CashoutRequests />} />}
+                </Routes>
+                </div>
+                </div>
             </div>
           </BrowserRouter>
         </UserContext.Provider>
