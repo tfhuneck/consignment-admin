@@ -1,13 +1,15 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App';
+import { AuthContext } from "../../App";
 import axios from 'axios';
 
-export const useFetchData = (url) => {
+export const useFetchData = (url, userid) => {
 
     const serverUrl                             = 'http://localhost:8090' || `${process.env.REACT_APP_production_url}`;
     const [ displayUser, setDisplayUser ]       = useContext(UserContext);
+    const [ userAuth ]                          = useContext(AuthContext);
     const [ userData, setUserData ]             = useState();
-    const userId                                = displayUser.userid;
+    const userId                                = userid;
 
     useEffect(() => {
         async function fetchData(){
@@ -15,6 +17,7 @@ export const useFetchData = (url) => {
                 serverUrl +
                 url,
                 {params:{
+                    userAuth,
                     userId
                 }})
                 .then(async res => {

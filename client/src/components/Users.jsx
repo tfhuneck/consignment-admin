@@ -8,6 +8,7 @@ import { useSetUserDisplay } from "./hooks/useSetUserDisplay";
 import { useUserList } from './hooks/useUserList';
 import { Link } from 'react-router-dom';
 import { useSearchUsers } from './hooks/useSearchUsers';
+import { useState, useEffect } from 'react';
 
 const Users = () => {
 
@@ -17,15 +18,28 @@ const Users = () => {
     // Custom Search hook 
     const { searchValue, filteredData, clearSearch, handleSearch } = useSearchUsers(userData);
     
-    // Custom hook that handles what window is displayed for user account
+    // Custom hook that handles active state of buttons setting which window is displayed for user account
     const [ display, setDisplay ]           = useSetUserDisplay();
     
     // Custom hook sets which user is displayed
     const {displayUser, setDisplayUser}     = useUserList(filteredData);
 
+    const [ profile, setProfile ]           = useState(avatar);
+
+    useEffect(() => {
+        if(displayUser && displayUser.avatar != null){
+            console.log(displayUser.avatar)
+            setProfile(displayUser.avatar)
+        }else{
+            setProfile(avatar);
+        }
+    }, [displayUser]);
+
+    console.log(display)
+
     return (
         <>
-            <div className="card home-dash container-fluid">
+            <div className="home-dash">
                 <div className="row users-row">
                     <div className="col-4 users-left">
                         <div className="container users-left">
@@ -53,19 +67,25 @@ const Users = () => {
                     <div className="col">
                         <div className="user-display container">
                             <div className="row">
-                                <div className="col">
-                                    <img className='profile-page-img' src={avatar} />
+                                <div className="col-sm-4">
+                                    <img className='profile-page-img' src={profile} />
                                 </div>
-                                <div className="col">
-                                    <button className="btn-user-page" id="overview" onClick={() => setDisplay('overview')} >Overview</button>
-                                </div>
-                                <div className="col">
-                                    <button className="btn-user-page" id="balance" onClick={() => setDisplay('balance')} >Balance</button>
-                                </div>
-                                <div className="col">
-                                    <Link to='/listings' >
-                                        <button className="btn-user-page" id="listings" >Listings</button>
-                                    </Link>
+                                <div className='col'>
+                                    <div className='row'>
+                                        <div className="col">
+                                            <button className="btn-user-page" id="overview" onClick={() => setDisplay('overview')} >Overview</button>
+                                        </div>
+                                        <div className="col">
+                                            <button className="btn-user-page" id="balance" onClick={() => setDisplay('balance')} >Balance</button>
+                                        </div>
+                                        <div className="col">
+                                            {displayUser&&
+                                                <Link to={`/listings/${displayUser.userid}` }>
+                                                    <button className="btn-user-page" id="listings" >Listings</button>
+                                                </Link>
+                                            }
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="row">

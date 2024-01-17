@@ -1,7 +1,26 @@
 import { Link } from 'react-router-dom';
 import logo from '../images/logo.png'
+import firebaseAuth from '../config/firebase-config';
+import { useContext, useEffect } from 'react';
+import { useNavigate} from 'react-router-dom';
+import { AuthContext } from '../App';
+import { getAuth, signOut } from "firebase/auth";
 
 const Nav = () => {
+
+    const [ userAuth, setUserAuth ] = useContext(AuthContext);
+    const auth                      = getAuth(firebaseAuth);
+    const navigate                  = useNavigate();
+
+    const handleLogout = () => {
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            setUserAuth(null);
+            navigate('/');
+        }).catch((error) => {
+        // An error happened.
+        });
+    }
 
     return (
         <>
@@ -13,7 +32,7 @@ const Nav = () => {
                 </div>
                 <div className='row'>
                     <div className='col d-flex justify-content-center'>
-                        ADMIN PANEL
+                        ADMIN DASH
                     </div>
                 </div>
                 <div className='card-body d-flex flex-column justify-content-evenly'>
@@ -77,7 +96,7 @@ const Nav = () => {
                             </div>
                         </Link>
                     </div>
-                    <div className='row justify-content-center'>
+                    {/* <div className='row justify-content-center'>
                         <Link className='user-nav-link' to='/'>
                             <div className='col'>
                                 <svg 
@@ -99,7 +118,7 @@ const Nav = () => {
                                 Balance
                             </div>
                         </Link>
-                    </div>
+                    </div> */}
                     <div className='row justify-content-center'>
                         <Link className='user-nav-link' to='/cashouts'>
                             <div className='col'>
@@ -147,7 +166,7 @@ const Nav = () => {
                             </div>
                         </Link>
                     </div>
-                    <div className='row justify-content-center'>
+                    {/* <div className='row justify-content-center'>
                         <Link className='user-nav-link' to='/'>
                             <div className='col'>
                                 <svg
@@ -185,6 +204,32 @@ const Nav = () => {
                             </div>
                             <div className='col nav-txt'>
                                 Messages
+                            </div>
+                        </Link>
+                    </div> */}
+                    <div className='row justify-content-center'>
+                        <Link className='user-nav-link' onClick={handleLogout}>
+                            <div className='col'>
+                                <svg 
+                                    className='user-nav-icn'
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    version="1.1" 
+                                    x="0px" 
+                                    y="0px" 
+                                    viewBox="0 0 100 125" 
+                                >
+                                    <path 
+                                        fill='currentColor'
+                                        d="M25,86h29c2.8,0,5-2.2,5-5s-2.2-5-5-5H25c-2.2,0-4-1.8-4-4V28c0-2.2,1.8-4,4-4h29c2.8,0,5-2.2,5-5s-2.2-5-5-5H25   c-7.7,0-14,6.3-14,14v44C11,79.7,17.3,86,25,86z"
+                                    />
+                                    <path 
+                                        fill='currentColor'
+                                        d="M75,31c-2-2-5.1-2-7.1,0c-2,2-2,5.1,0,7.1l7,7H38c-2.8,0-5,2.2-5,5s2.2,5,5,5h35.9l-6,6c-2,2-2,5.1,0,7.1   c1,1,2.3,1.5,3.5,1.5S74.1,69,75,68l15-15c2-2,2-5.1,0-7.1L75,31z"
+                                    />
+                                </svg>
+                            </div>
+                            <div className='col nav-txt'>
+                                Logout
                             </div>
                         </Link>
                     </div>

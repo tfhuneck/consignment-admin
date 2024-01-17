@@ -22,9 +22,11 @@ const UserDataOverview = (props) => {
     }, [displayUser])
 
     const updateSku = async () => {
+        const load = document.getElementById('sku-load')
         let userId = displayUser.userid;
         console.log(sku + userId)
         if (sku){
+            load.style.display = 'block'
             await axios.post('/updatesku', {
                 'userid' : userId,
                 'sku' : sku,
@@ -113,7 +115,7 @@ const UserDataOverview = (props) => {
                         Balance: 
                     </div>
                     <div className="col balance">
-                        ${displayUser && displayUser.currentbalance.toFixed(2)}
+                        {displayUser && `$ ${displayUser.currentbalance.toFixed(2)}`}
                     </div>
                 </div> <br />
                 <div className="row">
@@ -125,6 +127,8 @@ const UserDataOverview = (props) => {
                             className="sku"
                             onChange={handleSku}
                         />
+                    </div>
+                    <div class="spinner-border text-light" id="sku-load" role="status">
                     </div>
                     <div className="col">
                         <button 

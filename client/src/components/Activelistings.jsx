@@ -1,27 +1,47 @@
 import Pagination from "./Pagination";
 import Sort from "./Sort";
 import Search from "./Search";
-import Table from './ActivelistingsTable'
+import Table from './ActivelistingsTable';
+import Loading from "./Loading";
+import { useState, useEffect } from 'react';
 import { useSort } from "./hooks/useSort";
 import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
 import { useFetchData } from "./hooks/useFetchData";
+import { useParams } from "react-router-dom";
 
 function Listings(props) {
 
+    // User ID from Route Params
+    const params = useParams();
+
     // fetch User Data hook
-    const {userData} = useFetchData('/active');
+    const {userData} = useFetchData('/active', params.userid);
     
     // Custom Search hook 
     const { searchValue, filteredData, clearSearch, handleSearch } = useSearch(userData);
 
     // Sorting Table hook
-    const {state, handleSortName, handleSortPrice, handleSortTime} = useSort(filteredData);
+    const {state, handleSortName, handleSortPrice, handleSortTime, handleSortBids} = useSort(filteredData);
 
     // Pagination Hook that also handles rerenders on search and Sorting table
     const { currentRecords, currentPage, setCurrentPage, nPages } = usePagination(state, userData, filteredData);
 
-    if (currentRecords) {
+    // Condition to load table with products
+    const [ loaded, setLoaded ] = useState(false);
+
+    useEffect(() => {
+        if(userData) setLoaded(true)
+    }, [userData])
+
+    if(!loaded) {
+        return (
+            <> 
+                <Loading/>
+            </>
+        )
+    }
+    else {
         
         return (
             <>
@@ -39,6 +59,12 @@ function Listings(props) {
                                 Time Left
                                 <span onClick={handleSortTime} >
                                     <Sort sort={state.sortTime} />
+                                </span>
+                            </th>
+                            <th className="list-header" scope='col'>
+                                Bids
+                                <span onClick={handleSortBids} >
+                                    <Sort sort={state.sortBids} />
                                 </span>
                             </th>
                             <th className="list-header" scope='col'>

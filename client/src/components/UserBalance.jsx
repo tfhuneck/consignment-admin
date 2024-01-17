@@ -62,7 +62,7 @@ const UserBalance = (props) => {
             </div>
             <div className="row">
                 <div className="col">
-                    <Link to='/transactions' >
+                    <Link to={`/transactions/${displayUser.userid}`} >
                         <button className="btn btn-users-action">Manage Cashout Transactions</button>   
                     </Link>
                 </div>

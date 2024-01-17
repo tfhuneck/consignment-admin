@@ -5,6 +5,7 @@ const activelistingSchema = new mongoose.Schema({
     title: {type: String, default: null},
     sku: {type: String, default: null},
     itemurl: {type: String, default: null},
+    imageurl: {type: String, default: null},
     currentprice: {type: Number, default: 0},
     starttime: {type: String, default: null},
     timeleft: {type: String, default: null},

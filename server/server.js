@@ -10,6 +10,7 @@ const updateActive      = require('./services/ebayActiveListApi');
 const updateSold        = require('./services/ebaySoldListApi');
 const updatePending     = require('./services/ebayPendingListApi');
 const updateAllUsers    = require('./controllers/updateAllUsers');
+const updateUnsold      = require('./services/ebayUnsoldListApi');
 
 // .env config
 require('dotenv').config();
@@ -29,6 +30,10 @@ app.use(jsonParser);
 
 // =====routes===== 
 app.use(express.static(path.join(__dirname, 'build')));
+app.use('/allactive', require('./routes/allActiveRoute'));
+app.use('/allpending', require('./routes/allPendingRoute'));
+app.use('/allsold', require('./routes/allSoldRoute'));
+app.use('/allunsold', require('./routes/allUnsoldRoute'));
 app.use('/active', require('./routes/activeListingsRoute'));
 app.use('/clearactive', require('./routes/clearActiveRoute'));
 app.use('/clearpending', require('./routes/clearPendingRoute'));
@@ -45,6 +50,7 @@ app.use('/updateusersold', require('./routes/updateUserSoldRoute'));  // updates
 app.use('/updateuserunsold', require('./routes/updateUserUnSoldRoute'));  // updates user's unsold listings
 app.use('/updateuserpending', require('./routes/updateUserPendingRoute'));  // updates user's pending listings
 app.use('/updateuserbalance', require('./routes/updateUserBalanceRoute'));  // updates user's balance / payout records
+app.use('/analysis', require('./routes/AnalysisRoute')); //updating analysis file with curren stats
 app.use('/updateusercurrentbalance', require('./routes/updateUserCurrentBalanceRoute'));  // calculates and updates user's current balance
 app.use('/addcashout', require('./routes/postCashoutRoute'));  // add cashout transaction to userprofile 
 app.use('/deletecashout', require('./routes/deleteCashoutRoute'));  // delete cashout transaction from userprofile 
@@ -53,14 +59,20 @@ app.use('/ebayauth', require('./routes/ebayAuthRoute'));  // ebay OAuth authoriz
 app.use('/ebayauthconfirm', require('./routes/ebayGetUserTokenRoute')) // ebay user authorization redirect endpoint 
 app.use('/usertoken', require('./routes/userTokenRoute'))  // save minted Usertoken to db and fetch userToken and RefreshToken
 app.use('/refreshtoken', require('./routes/ebayRefreshTokenRoute')) //  ebay refresh token 
-app.use('/request', require('./routes/requestRoute'));
+app.use('/request', require('./routes/requestRoute')); 
+app.use('/image', require('./routes/ebayGetImageRoute')); // retrieve image url from ebay api with item id
+app.use('/activeimages', require('./routes/acticeImagesRoute'));
+app.use('/soldimages', require('./routes/soldImagesRoute'));
+app.use('/pendingimages', require('./routes/pendingImagesRoute'));
+app.use('/unsoldimages', require('./routes/unsoldImagesRoute'));
+app.use('/apptoken', require('./routes/appTokenRoute'));
 
 // serving static files with page routes from index files
 app.get(['/', '/dash', '/users', '/listings', '/transactions'], (req, res) => {
   res.sendFile('index.html', {root: path.join(__dirname, './build')});
 });
 
-// endpoint to fetch active listings from ebay every 10min
+// endpoint to fetch active listings from ebay every 1h
 // updateActive();
 
 // endpoint to fetch sold listings from ebay every 1h
@@ -68,6 +80,9 @@ app.get(['/', '/dash', '/users', '/listings', '/transactions'], (req, res) => {
 
 // endpoint to fetch pending listings from ebay every 1h
 // updatePending();
+
+// endpoint to fetch pending listings from ebay every 1h
+// updateUnsold();
 
 // endpoint to update all users evey 1h 
 // updateAllUsers();
