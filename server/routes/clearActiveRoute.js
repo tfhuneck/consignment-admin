@@ -1,6 +1,6 @@
 const express               = require('express');
 const router                = express.Router();
-const clearListings         = require('../controllers/clearActiveListings')
+const clearListings         = require('../controllers/clearActiveCache')
 
 router.route('/')
     .get(clearListings)

@@ -1,9 +1,10 @@
-const Listing      = require ('../model/Unsolditem');
+const Listing      = require ('../model/AllItem');
 
 const getAllUnsold = async (req, res) => {
 
     try{
-        const data              = await Listing.find();
+        const allData              = await Listing.find();
+        const data = await allData.filter((i) => i.status === 'unsold' || i.status === 'canceled')
         res.send(data);
     }
     catch(err) {

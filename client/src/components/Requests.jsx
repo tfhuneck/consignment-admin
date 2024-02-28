@@ -1,5 +1,6 @@
 import { useFetchDataGeneral } from "./hooks/useFetchDataGeneral";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../App";
 import axios from "axios";
 
 const NoRequests = (data) => {
@@ -18,6 +19,7 @@ const NoRequests = (data) => {
 const CashoutRequests = () => {
 
     const [ request, setRequest ]       = useState();
+    const [ userAuth ]                  = useContext(AuthContext);
     const data                          = useFetchDataGeneral('/request', request);
     const requests                      = data.data;
     const serverUrl                     = 'http://localhost:8090' || `${process.env.REACT_APP_production_url}`;
@@ -30,7 +32,7 @@ const CashoutRequests = () => {
         await axios.get(
             // serverUrl +
             '/getUser',
-            {params: {userId}}
+            {params: {userId, userAuth}}
         ) .then((res) => {  
             userData = res.data
         }).catch((err) => console.log(err))
@@ -43,7 +45,9 @@ const CashoutRequests = () => {
     }
 
     const confirmRequest = async (displayUser, date, type, amount, comment, requestId) => {
-
+        let userId = displayUser.userid;
+        const load = document.getElementById('req-load')
+        load.style.display = 'block';
         const transaction = {
             date: date,
             type: type,
@@ -51,9 +55,9 @@ const CashoutRequests = () => {
             comment: comment
         };
         await axios.post(
-            // serverUrl + 
+            // serverUrl +
             '/addcashout', {
-            displayUser,
+            userId,
             transaction
         })
         .then(res => {
@@ -66,6 +70,8 @@ const CashoutRequests = () => {
     }
 
     const cancelRequest = async (requestId) => {
+        const load = document.getElementById('req-load')
+        load.style.display = 'block';
         await axios.put(
             // serverUrl +
             '/request',
@@ -195,6 +201,8 @@ const CashoutRequests = () => {
                                             </div>
                                         </div>
                                         <div className="request-display-buttons">
+                                            <div class="spinner-border text-light" id="req-load" role="status">
+                                            </div>
                                             <button 
                                                 className="btn btn-outline-success request-button"
                                                 onClick={() => confirmRequest(request.userData, request.cashoutReq.date, request.cashoutReq.type, request.cashoutReq.amount, request.cashoutReq.comment, request.cashoutReq._id)}

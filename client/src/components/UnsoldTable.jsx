@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import Element from "./DashElement";
 import ebayLogo from '../images/ebay-logo.png';
 import listed from './hooks/listed';
+import Status from "./Status";
+import payout from './hooks/payout';
 
 const UnsoldTable = ({currentRecords}) => {
 
@@ -33,38 +35,174 @@ const UnsoldTable = ({currentRecords}) => {
                                                     Details
                                                 </div>
                                                 <div className='card-body container'>
-                                                    <div className='row details-row'>
-                                                        <div className="col listing-header">
-                                                            View on ebay
+                                                    {data.itemurl ?
+                                                        <div className='row details-row'>
+                                                            <div className="col listing-header">
+                                                                View on ebay
+                                                            </div>
+                                                            <div className="col listing-body">
+                                                                <a href={data.itemurl} target="_blank"><img src={ebayLogo} style={{height:"1.5rem", width:"auto"}} /> </a>
+                                                            </div>
+                                                        </div> 
+                                                        : null
+                                                    }
+                                                    {data.starttime ? 
+                                                        <div className='row details-row'>
+                                                            <div className="col listing-header">
+                                                                Listed on
+                                                            </div>
+                                                            <div className="col listing-body">
+                                                                {data.starttime && listed(data.starttime)}
+                                                            </div>
                                                         </div>
-                                                        <div className="col listing-body">
-                                                            <a href={data.itemurl} target="_blank"><img src={ebayLogo} style={{height:"1.5rem", width:"auto"}} /> </a>
+                                                        : null
+                                                    }
+                                                    {data.endtime ?
+                                                        <div className='row details-row'>
+                                                            <div className="col listing-header">
+                                                                Ended on
+                                                            </div>
+                                                            <div className="col listing-body">
+                                                                {listed(data.endtime)}
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div className='row details-row'>
-                                                        <div className="col listing-header">
-                                                            SKU
+                                                        :null
+                                                    }
+                                                    {data.sku ?
+                                                        <div className='row details-row'>
+                                                            <div className="col listing-header">
+                                                                SKU
+                                                            </div>
+                                                            <div className="col listing-body">
+                                                                {data.sku}
+                                                            </div>
                                                         </div>
-                                                        <div className="col listing-body">
-                                                            {data.sku}
+                                                        : null
+                                                    }
+                                                    {data.watchcount ?
+                                                        <div className='row details-row'>
+                                                            <div className="col listing-header">
+                                                                Watching
+                                                            </div>
+                                                            <div className="col listing-body">
+                                                                {data.watchcount}
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div className='row details-row'>
-                                                        <div className="col listing-header">
-                                                            Listed on
+                                                        : null
+                                                    }
+                                                    {data.bidcount ?
+                                                        <div className='row details-row'>
+                                                            <div className="col listing-header">
+                                                                Bids
+                                                            </div>
+                                                            <div className="col listing-body">
+                                                                {data.bidcount}
+                                                            </div>
                                                         </div>
-                                                        <div className="col listing-body">
-                                                            {listed(data.starttime)}
+                                                        : null
+                                                    }
+                                                    {data.currentprice ? 
+                                                        <>
+                                                            <div className='row details-row'>
+                                                                <div className="col listing-header">
+                                                                    Auction Price
+                                                                </div>
+                                                                <div className="col listing-body total">
+                                                                    $ {data.currentprice.toFixed(2)}
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                        : null
+                                                    }
+                                                    {data.currentprice ? 
+                                                        <>
+                                                            <div className='row details-row'>
+                                                                <div className="col listing-header">
+                                                                    (Auction) Fees
+                                                                </div>
+                                                                <div className="col listing-body">
+                                                                $ 0
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                        : null
+                                                    }
+                                                    {data.currentprice ? 
+                                                        <>
+                                                            <div className='row details-row'>
+                                                                <div className="col listing-header">
+                                                                (Auction) Payout
+                                                                </div>
+                                                                <div className="col listing-body num">
+                                                                    $ 0
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                        : null
+                                                    }
+                                                    {data.paymentstatus ? 
+                                                        <>
+                                                            <div className='row details-row'>
+                                                                <div className="col listing-header">
+                                                                    Payment Status
+                                                                </div>
+                                                                <div className="col listing-body">
+                                                                    {data.paymentstatus}
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                        : null
+                                                    }
+                                                    {data.paymentstatus ? 
+                                                        <>
+                                                            <div className='row details-row'>
+                                                                <div className="col listing-header">
+                                                                    Final Price
+                                                                </div>
+                                                                <div className="col listing-body num">
+                                                                    $ {data.finalprice.toFixed(2)}
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                        : null
+                                                    }
+                                                    {data.paymentstatus ? 
+                                                        <>
+                                                            <div className='row details-row'>
+                                                                <div className="col listing-header">
+                                                                    Final Fees
+                                                                </div>
+                                                                <div className="col listing-body">
+                                                                $ 0
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                        : null
+                                                    }
+                                                    {data.paymentstatus ? 
+                                                        <>
+                                                            <div className='row details-row'>
+                                                                <div className="col listing-header">
+                                                                    Final Payout
+                                                                </div>
+                                                                <div className="col listing-body total">
+                                                                    $ 0
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                        : null
+                                                    }
+                                                    {data.canceldate ?
+                                                        <div className='row details-row'>
+                                                            <div className="col listing-header">
+                                                                Cancel Date
+                                                            </div>
+                                                            <div className="col listing-body">
+                                                                {listed(data.canceldate)}
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div className='row details-row'>
-                                                        <div className="col listing-header">
-                                                            Ended on
-                                                        </div>
-                                                        <div className="col listing-body">
-                                                            {listed(data.endtime)}
-                                                        </div>
-                                                    </div>
+                                                        :null
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -74,7 +212,12 @@ const UnsoldTable = ({currentRecords}) => {
                         </td>
                         <td className={`side-td-${key}`}>
                             <span>
-                                {listed(data.endtime)}
+                                <Status stat={data.status} /> 
+                            </span>
+                        </td>
+                        <td className={`side-td-${key}`}>
+                            <span>
+                                {data.endtime && data.status === 'unsold' ? listed(data.endtime) : data.canceldate && data.status === 'canceled' ? listed(data.canceldate) : null}
                             </span>
                         </td>
                     </tr>

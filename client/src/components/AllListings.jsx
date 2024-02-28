@@ -3,6 +3,7 @@ import AllActive from "./AllActivelistings";
 import AllPending from "./AllPendinglistings";
 import AllSold from "./AllSoldlistings";
 import AllUnsold from "./AllUnsoldlistings";
+import AllSummary from './AllSummaryListings'
 
 const AllListings = () => {
 
@@ -23,6 +24,7 @@ const AllListings = () => {
                         <button id="dashListPending" className="dash-list" onClick={()=> setDisplayList('pendingListings')}>Pending</button>
                         <button id="dashListSold" className="dash-list" onClick={()=> setDisplayList('soldListings')}>Sold Items</button>
                         <button id="dashListUnsold" className="dash-list" onClick={()=> setDisplayList('unsoldListings')}>Unsold</button>
+                        <button id="dashListSummary" className="dash-list" onClick={()=> setDisplayList('summaryListings')}>Summary</button>
                     </div>
                 </div>
             </div>
@@ -31,6 +33,7 @@ const AllListings = () => {
                 { displayList === 'pendingListings' &&  <AllPending /> }
                 { displayList === 'soldListings' &&  <AllSold /> }
                 { displayList === 'unsoldListings' && <AllUnsold /> }
+                { displayList === 'summaryListings' && <AllSummary /> }
             </div>
 
         </>

@@ -1,4 +1,4 @@
-const UnsoldListings    = require ('../model/Unsolditem');
+const UnsoldListings    = require ('../model/AllItem');
 const User              = require('../model/User');
 
 const getUnsold = async (req, res) => {
@@ -12,7 +12,7 @@ const getUnsold = async (req, res) => {
         const sku               = user.skucode;
         const filterListings    = data.filter((items) => {
             if(items.sku) {
-                return items.sku.toLowerCase().includes(sku.toLowerCase());
+                return items.status === 'unsold' || items.status === 'canceled' && items.sku.toLowerCase().includes(sku.toLowerCase());
             }
         })
         // const filterListings  =  data.filter((i) => 

@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
+import { AuthContext } from "../App";
 import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useFetchData } from "./hooks/useFetchData";
@@ -16,6 +17,7 @@ const CashoutTransactions = () => {
     // User Context
     const serverUrl                                     = 'http://localhost:8090' || `${process.env.REACT_APP_production_url}`;
     const [ displayUser, setDisplayUser ]               = useContext(UserContext);
+    const [ userAuth ]                                  = useContext(AuthContext);
     const [ transactionResult, SetTransactionResult ]   = useState('');
     let userId = displayUser? displayUser.userid : null;
     
@@ -31,7 +33,7 @@ const CashoutTransactions = () => {
             // serverUrl +
             '/getuser',
             {params:{
-                userId
+                userId, userAuth
             }})
             .then(res => {
                 console.log(res.data);
@@ -50,13 +52,14 @@ const CashoutTransactions = () => {
         const type      = document.getElementById('type');
         const amount    = document.getElementById('amount');
         const comment   = document.getElementById('comment');
+        let userId      = displayUser.userid;
         console.log(transaction)
         
         if(displayUser && transaction.amount){
             await axios.post(
                 // serverUrl + 
                 '/addcashout', {
-                displayUser,
+                userId,
                 transaction
             })
             .then(res => {
@@ -76,10 +79,12 @@ const CashoutTransactions = () => {
     }
 
     const deleteTransaction = async (id) => {
+        let userId = displayUser.userid;
+
         await axios.post(
             // serverUrl + 
             '/deletecashout', {
-                displayUser,
+                userId,
                 id
             }
         )
@@ -94,6 +99,7 @@ const CashoutTransactions = () => {
     return (
         <>
             <div className="card home-dash">
+                <div className="container-fluid">
                 <Link to='/users' className="back">
                     <svg 
                         className="back-svg" 
@@ -107,7 +113,6 @@ const CashoutTransactions = () => {
                     </svg>
                     <span className="back-text">Back</span>
                 </Link>
-                <div className="container-fluid">
                     <div className="row">
                         <div className="col d-flex justify-content-center">
                             <h4>{displayUser && displayUser.name}</h4>

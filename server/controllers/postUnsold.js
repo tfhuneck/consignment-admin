@@ -1,4 +1,5 @@
 const UnsoldItem         = require('../model/Unsolditem');
+const UnsoldCache        = require('../model/UnsolditemCache');
 
 const postUnsold = async (req, res, next) => {
     
@@ -11,6 +12,7 @@ const postUnsold = async (req, res, next) => {
     console.log(filterData);
     try{
         await UnsoldItem.insertMany(filterData);
+        await UnsoldCache.insertMany(data);
         console.log('UnSold Items DB updated')
         res.send('UnSold Items have been saved to DB')
     }catch (err){
