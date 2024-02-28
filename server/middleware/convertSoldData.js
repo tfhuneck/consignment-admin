@@ -1,4 +1,5 @@
 const convert       = require('xml-js');
+const fs = require('fs');
 
 const convertData = async (req, res, next) => {
     const rawData           = req.body.rawData;
@@ -46,6 +47,16 @@ const convertData = async (req, res, next) => {
     // const soldFiltered = postDataArray.filter((i) => i.paymentstatus === 'MarkedAsPaid');
     
     req.convertedData = postDataArray;
+
+    // let writeData = JSON.stringify(postDataArray)
+
+    // fs.writeFile('soldData.txt', writeData, (err) => {
+    //     if (err)
+    //       console.log(err);
+    //     else {
+    //       console.log("File written successfully\n");
+    //     }
+    //   });
 
     next()
 }

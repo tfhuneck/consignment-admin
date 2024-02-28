@@ -7,6 +7,7 @@ import Listings from './Activelistings';
 import Sold from "./Soldlistings";
 import Pending from './Pendinglistings'
 import Unsold from "./Unsoldlistings";
+import Summary from './SummaryListings'
 
 const UserListings = () => {
 
@@ -31,7 +32,7 @@ const UserListings = () => {
     return (
         <>
             <div className="card home-dash">
-                <div className="container">
+                <div className="container container-home">
                     <Link to='/users' className="back">
                         <svg 
                             className="back-svg" 
@@ -59,6 +60,7 @@ const UserListings = () => {
                             <button id="dashListPending" className="dash-list" onClick={()=> setDisplayList('pendingListings')}>Pending</button>
                             <button id="dashListSold" className="dash-list" onClick={()=> setDisplayList('soldListings')}>Sold Items</button>
                             <button id="dashListUnsold" className="dash-list" onClick={()=> setDisplayList('unsoldListings')}>Unsold</button>
+                            <button id="dashListSummary" className="dash-list" onClick={()=> setDisplayList('summaryListings')}>Summary</button>
                         </div>
                     </div>
                 </div>
@@ -67,6 +69,7 @@ const UserListings = () => {
                     { displayList === 'pendingListings' && <Pending/>  }
                     { displayList === 'soldListings' && <Sold/>  }
                     { displayList === 'unsoldListings' && <Unsold/>  }
+                    { displayList === 'summaryListings' && <Summary/>  }
                 </div>
             </div>
         </>

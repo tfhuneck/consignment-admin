@@ -6,11 +6,7 @@ const cors              = require('cors');
 const axios             = require('axios');
 const mongoose          = require('mongoose');
 const connectDB         = require('./config/dbConn');
-const updateActive      = require('./services/ebayActiveListApi');
-const updateSold        = require('./services/ebaySoldListApi');
-const updatePending     = require('./services/ebayPendingListApi');
-const updateAllUsers    = require('./controllers/updateAllUsers');
-const updateUnsold      = require('./services/ebayUnsoldListApi');
+const runDataCalls      = require('./controllers/callingDataApis')
 
 // .env config
 require('dotenv').config();
@@ -30,6 +26,8 @@ app.use(jsonParser);
 
 // =====routes===== 
 app.use(express.static(path.join(__dirname, 'build')));
+app.use('/allsummary', require('./routes/allSummaryRoute'))
+app.use('/summary', require('./routes/summaryRoute'))
 app.use('/allactive', require('./routes/allActiveRoute'));
 app.use('/allpending', require('./routes/allPendingRoute'));
 app.use('/allsold', require('./routes/allSoldRoute'));
@@ -37,10 +35,13 @@ app.use('/allunsold', require('./routes/allUnsoldRoute'));
 app.use('/active', require('./routes/activeListingsRoute'));
 app.use('/clearactive', require('./routes/clearActiveRoute'));
 app.use('/clearpending', require('./routes/clearPendingRoute'));
+app.use('/clearunsold', require('./routes/clearUnsoldRoute'));
+app.use('/clearsold', require('./routes/clearSoldRoute'));
 app.use('/sold', require('./routes/soldRoute'));
 app.use('/unsold', require('./routes/unsoldRoute'));
 app.use('/sold', require('./routes/soldRoute'));
 app.use('/pending', require('./routes/pendingRoute'));
+app.use('/canceled', require('./routes/canceledRoute'));
 app.use('/getuser', require('./routes/getUserRoute'));
 app.use('/getusers', require('./routes/getUsersRoute'));
 app.use('/updatesku', require('./routes/updateSkuRoute'));
@@ -68,24 +69,20 @@ app.use('/unsoldimages', require('./routes/unsoldImagesRoute'));
 app.use('/apptoken', require('./routes/appTokenRoute'));
 
 // serving static files with page routes from index files
-app.get(['/', '/dash', '/users', '/listings', '/transactions'], (req, res) => {
+app.get(['/', '/dash', '/users', '/listings', '/listings/:userid', '/transactions', '/transactions/:userid', '/cashouts'], (req, res) => {
   res.sendFile('index.html', {root: path.join(__dirname, './build')});
 });
 
-// endpoint to fetch active listings from ebay every 1h
-// updateActive();
+app.get('/testupdate', require('./updateDb'));
+app.use('/activenew', require('./routes/activeNewRoute')); // new active update to main db endpoint
+app.use('/pendingnew', require('./routes/pendingNewRoute')); // new pending update to main db endpoint
+app.use('/soldnew', require('./routes/soldNewRoute')); // new sold update to main db endpoint
+app.use('/unsoldnew', require('./routes/unsoldNewRoute')); // new unsold update to main db endpoint
+app.use('/canceled', require('./routes/canceledRoute')); // new active update to main db endpoint
 
-// endpoint to fetch sold listings from ebay every 1h
-// updateSold();
+app.get('/canceledfill', require('./services/ebayCancelFill'))
 
-// endpoint to fetch pending listings from ebay every 1h
-// updatePending();
-
-// endpoint to fetch pending listings from ebay every 1h
-// updateUnsold();
-
-// endpoint to update all users evey 1h 
-// updateAllUsers();
+// runDataCalls(); // calling ebay api calls and updating Database;
 
 // =========Setting up Server om port 8090============
 app.listen(PORT, () => {

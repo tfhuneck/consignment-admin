@@ -10,7 +10,8 @@ const activeActiveCacheSchema = new mongoose.Schema({
     starttime: {type: String, default: null},
     timeleft: {type: String, default: null},
     bidcount: {type: Number, default: 0},
-    watchcount: {type: Number, default: 0}
+    watchcount: {type: Number, default: 0},
+    status : {type: String, default: 'active'},
     },
     { timestamps: true }
 );

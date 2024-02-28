@@ -26,7 +26,7 @@ const UserDataOverview = (props) => {
         let userId = displayUser.userid;
         console.log(sku + userId)
         if (sku){
-            load.style.display = 'block'
+            load.style.display = 'block';
             await axios.post('/updatesku', {
                 'userid' : userId,
                 'sku' : sku,
@@ -128,7 +128,7 @@ const UserDataOverview = (props) => {
                             onChange={handleSku}
                         />
                     </div>
-                    <div class="spinner-border text-light" id="sku-load" role="status">
+                    <div className="spinner-border text-light" id="sku-load" role="status">
                     </div>
                     <div className="col">
                         <button 

@@ -20,7 +20,7 @@ const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
         let number= Array.from({length: Math.min(nPages, max)}, (_, i) => (i + 1) + from);
         setPageNumber(number)
 
-    }, [nPages, currentPage])
+    }, [nPages, currentPage, setCurrentPage])
    
     const nextPage = () => {
             if(currentPage !== nPages) setCurrentPage(currentPage + 1)

@@ -4,7 +4,7 @@ const totalCashouts = require('../modules/totalCashouts');
 
 const deleteTransaction = async (req, res) => {
     
-    const userId            = req.body.displayUser.userid;
+    const userId            = req.body.userId;
     const transactionId     = req.body.id;
     
     try {

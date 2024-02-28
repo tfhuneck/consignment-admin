@@ -502,6 +502,21 @@ body {
   margin-left: 0.5rem;
   cursor: pointer;
 }
+.include{
+  padding: 0.5rem;
+  /* margin-top: 0.5rem; */
+  cursor: pointer;
+  background-color: rgb(5, 5, 5, 0.2);
+  border-radius: 5px;
+}
+.include-checkbox{
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+.include-label{
+  cursor: pointer;
+  font-weight: 200;
+}
 table tbody td{
   overflow-y:auto;
   border: none;
@@ -570,6 +585,28 @@ table tbody tr:last-child td:last-child {
   box-shadow: 2px 7px 15px -2px rgb(8, 19, 30);
   background-color: rgba(0, 0, 0, 0.6);
 }
+.status{
+  width: 6rem;
+  margin-top: 0.5rem;
+  text-align: center;
+  border-radius: 20px;
+  padding: 0.5rem;
+}
+.status-active{
+  background-color: green;
+}
+.status-pending{
+  background-color: orange;
+}
+.status-sold{
+  background-color: #d50924;
+}
+.status-unsold{
+  background-color: blueviolet;
+}
+.status-canceled{
+  background-color: darkmagenta;
+}
 .time-left{
   font-weight: 500 !important;
   color: #d50924 !important;
@@ -610,7 +647,8 @@ table tbody tr:last-child td:last-child {
   font-size: 1.2rem;
 }
 .transaction-container{
-  background-color: #474F57;
+  /* background-color: #474F57; */
+  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 1rem;
   text-align: center;
   padding: 1rem;

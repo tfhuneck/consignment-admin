@@ -1,4 +1,5 @@
 const SoldItem         = require('../model/Solditem');
+const SoldCache        = require('../model/SolditemCache');
 
 const postSold = async (req, res, next) => {
     
@@ -11,6 +12,7 @@ const postSold = async (req, res, next) => {
     console.log(filterData);
     try{
         await SoldItem.insertMany(filterData);
+        await SoldCache.insertMany(data);
         console.log('Sold Items DB updated')
         res.send('Sold Items have been saved to DB')
     }catch (err){

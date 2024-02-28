@@ -9,7 +9,8 @@ const pendingCacheSchema = new mongoose.Schema({
     starttime: {type: String, default: null},
     endtime: {type: String, default: null},
     price: {type: Number, default: 0},
-    paymentstatus: {type: String, default: null}
+    paymentstatus: {type: String, default: null},
+    status: {type: String, default: 'pending'},
     },
     { timestamps: true }
 );

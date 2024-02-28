@@ -3,12 +3,14 @@ import Pagination from "./Pagination";
 import Search from "./Search";
 import Sort from "./Sort";
 import UnsoldTable from './UnsoldTable';
+import Include from "./IncludeUnsold";
 import { useSortPay } from "./hooks/useSortPay";
 import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
 import { useFetchData } from './hooks/useFetchData';
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
+import { useInclude } from "./hooks/useInclude";
 
 // Sold Elements Component
 function Unsold() {
@@ -19,11 +21,14 @@ function Unsold() {
     // fetch User Data hook
     const {userData} = useFetchData('/unsold', params.userid);
 
+    // Include categories hook
+    const {stateInclude, handleAll, handleUnsold, handleCanceled} = useInclude(userData)
+
     // Custom Search hook 
-    const { searchValue, filteredData, clearSearch, handleSearch } = useSearch(userData);
+    const { searchValue, filteredData, clearSearch, handleSearch } = useSearch(stateInclude.dataIncluded);
 
     // Sorting Table hook
-    const {state, handleSortName, handleSortPrice, handleSortPay, handleSortDate}  = useSortPay(filteredData);
+    const {state, handleSortName, handleSortDate}  = useSortPay(filteredData);
 
     // Pagination Hook that also handles rerenders on search and Sorting table
     const { currentRecords, currentPage, setCurrentPage, nPages } = usePagination(state, userData, filteredData);
@@ -47,6 +52,13 @@ function Unsold() {
         return (
             <>
                 <Search clearSearch={clearSearch} handleSearch={handleSearch} searchClass={'listings-search'} clearClass={'clear-search'} searchValue={searchValue} />
+                <Include  
+                    data={userData}
+                    state={stateInclude}
+                    handleAll={handleAll} 
+                    handleUnsold={handleUnsold}
+                    handleCanceled={handleCanceled}
+                />
                 <div className='table-responsive-lg table-main'>
                     <table className='table table-dark table-striped table-hover table-listings-mobile'>
                         <thead>
@@ -56,6 +68,9 @@ function Unsold() {
                                     <span onClick={handleSortName} >
                                         <Sort sort={state.sortName}/>
                                     </span>
+                                </th>
+                                <th className="list-header" scope='col'>
+                                    Status
                                 </th>
                                 <th className="list-header" scope='col'>
                                     Date

@@ -10,7 +10,7 @@ export const useFetchUserData = () => {
 
     useEffect(() => {
         axios.get(
-            // serverUrl +
+            serverUrl +
             '/getusers',
             {params:{
                 userAuth

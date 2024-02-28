@@ -4,7 +4,7 @@ const totalCashouts = require('../modules/totalCashouts');
 
 const CashoutTransaction = async(req, res) => {
     
-    const userid        = req.body.displayUser.userid;
+    const userid        = req.body.userId;
     const transaction   = req.body.transaction;
     let findUser        = await User.findOne({userid : userid}).exec()
 
