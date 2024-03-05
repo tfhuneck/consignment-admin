@@ -65,11 +65,11 @@ const UserListings = () => {
                     </div>
                 </div>
                 <div className="container-fluid">
-                    { displayList === 'activeListings' && <Listings/> }
-                    { displayList === 'pendingListings' && <Pending/>  }
-                    { displayList === 'soldListings' && <Sold/>  }
-                    { displayList === 'unsoldListings' && <Unsold/>  }
-                    { displayList === 'summaryListings' && <Summary/>  }
+                    { displayList === 'activeListings' && <Listings sku={displayUser && displayUser.skucode} /> }
+                    { displayList === 'pendingListings' && <Pending sku={displayUser && displayUser.skucode} />  }
+                    { displayList === 'soldListings' && <Sold sku={displayUser && displayUser.skucode} />  }
+                    { displayList === 'unsoldListings' && <Unsold sku={displayUser && displayUser.skucode} />  }
+                    { displayList === 'summaryListings' && <Summary sku={displayUser && displayUser.skucode} />  }
                 </div>
             </div>
         </>

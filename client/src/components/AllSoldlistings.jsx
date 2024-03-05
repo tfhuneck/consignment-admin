@@ -7,14 +7,13 @@ import { useState, useEffect } from 'react';
 import { useSortPay } from "./hooks/useSortPay";
 import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
-import { useFetchData } from "./hooks/useFetchData";
-import { useParams } from "react-router-dom";
+import { useListingData } from './hooks/useListingData';
 
 
 function AllSold() {
 
-    // fetch User Data hook
-    const {userData} = useFetchData('/allsold');
+    // User Listing Data
+    const { userData } = useListingData('sold');
 
     // Custom Search hook 
     const { searchValue, filteredData, clearSearch, handleSearch } = useSearch(userData);

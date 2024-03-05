@@ -11,16 +11,15 @@ import { useFetchData } from './hooks/useFetchData';
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { useInclude } from "./hooks/useInclude";
+import { useListingData } from './hooks/useUserListingData';
 
 // Sold Elements Component
-function Unsold() {
+function Unsold(props) {
 
-    // User ID from Route Params
-    const params = useParams();
+    const sku = props.sku
 
-    // fetch User Data hook
-    const {userData} = useFetchData('/unsold', params.userid);
-
+    const { userData } = useListingData(sku, 'unsold', 'canceled')
+    
     // Include categories hook
     const {stateInclude, handleAll, handleUnsold, handleCanceled} = useInclude(userData)
 

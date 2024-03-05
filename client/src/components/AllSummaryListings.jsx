@@ -4,24 +4,22 @@ import Search from "./Search";
 import Table from './SummaryListingsTable';
 import Loading from "./Loading";
 import Include from "./Include";
-import { useState, useEffect } from 'react';
+import { useEffect, useState, useContext } from "react";
 import { useSort } from "./hooks/useSortSummary";
 import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
 import { useFetchData } from "./hooks/useFetchData";
 import { useParams } from "react-router-dom";
 import { useInclude } from "./hooks/useInclude";
+import { ListingContext } from "../App";
+
 
 function Listings(props) {
 
-    // User ID from Route Params
-    const params = useParams();
-
-    // fetch User Data hook
-    const {userData} = useFetchData('/allsummary');
+    const [ listingData, setListingData ]   = useContext(ListingContext);
 
     // Include categories hook
-    const {stateInclude, handleAll, handleActive, handlePending, handleSold, handleUnsold, handleCanceled} = useInclude(userData)
+    const {stateInclude, handleAll, handleActive, handlePending, handleSold, handleUnsold, handleCanceled} = useInclude(listingData)
     
     // Custom Search hook 
     const { searchValue, filteredData, clearSearch, handleSearch } = useSearch(stateInclude.dataIncluded);
@@ -30,14 +28,14 @@ function Listings(props) {
     const {state, handleSortName, handleSortPrice } = useSort(filteredData);
 
     // Pagination Hook that also handles rerenders on search and Sorting table
-    const { currentRecords, currentPage, setCurrentPage, nPages } = usePagination(state, userData, filteredData, stateInclude,);
+    const { currentRecords, currentPage, setCurrentPage, nPages } = usePagination(state, listingData, filteredData, stateInclude,);
 
     // Condition to load table with products
     const [ loaded, setLoaded ] = useState(false);
 
     useEffect(() => {
-        if(userData) setLoaded(true)
-    }, [userData])
+        if(listingData) setLoaded(true)
+    }, [listingData])
 
     if(!loaded) {
         return (
@@ -52,7 +50,7 @@ function Listings(props) {
             <>
                 <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} searchClass={'listings-search'} clearClass={'clear-search-home'} />
                 <Include  
-                    data={userData}
+                    data={listingData}
                     state={stateInclude} 
                     handleAll={handleAll}
                     handleActive={handleActive}

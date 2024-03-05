@@ -6,8 +6,6 @@ import payout from './hooks/payout';
 import Status from "./Status";
 
 
-
-
 const Table = ({currentRecords}) => {
 
     return (

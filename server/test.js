@@ -9,14 +9,14 @@ const runTest = async (id) => {
     console.log('call made')
 
     // runUpdate();
-    // getCanceled();
+    getCanceled();
 
 
     const serverUrl     = 'http://localhost:8090' || PORT
     
-    axios.get(serverUrl + '/canceled')
-        .then((res) => console.log(res.data))
-        .catch((err) => console.log(err))
+    // axios.get(serverUrl + '/report')
+    //     .then((res) => console.log(res.data))
+    //     .catch((err) => console.log(err))
     
     // axios.get(serverUrl + '/testupdate')
     // .then((res) => console.log(res.data))

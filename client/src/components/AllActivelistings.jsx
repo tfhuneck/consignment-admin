@@ -7,12 +7,11 @@ import { useState, useEffect } from 'react';
 import { useSort } from "./hooks/useSort";
 import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
-import { useFetchData } from "./hooks/useFetchData";
+import { useListingData } from './hooks/useListingData';
 
 function AllActive(props) {
 
-    // fetch all active Data hook
-    const {userData} = useFetchData('/allactive');
+    const { userData } = useListingData('active')
     
     // Custom Search hook 
     const { searchValue, filteredData, clearSearch, handleSearch } = useSearch(userData);
