@@ -26,12 +26,7 @@ app.use(jsonParser);
 
 // =====routes===== 
 app.use(express.static(path.join(__dirname, 'build')));
-app.use('/listingdata', require('./routes/allSummaryRoute'))
-app.use('/summary', require('./routes/summaryRoute'))
-app.use('/allactive', require('./routes/allActiveRoute'));
-app.use('/allpending', require('./routes/allPendingRoute'));
-app.use('/allsold', require('./routes/allSoldRoute'));
-app.use('/allunsold', require('./routes/allUnsoldRoute'));
+app.use('/listingdata', require('./routes/listingDataRoute'))
 app.use('/active', require('./routes/activeListingsRoute'));
 app.use('/clearactive', require('./routes/clearActiveRoute'));
 app.use('/clearpending', require('./routes/clearPendingRoute'));

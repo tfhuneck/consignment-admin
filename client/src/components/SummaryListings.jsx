@@ -8,10 +8,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useSort } from "./hooks/useSortSummary";
 import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
-import { useFetchData } from "./hooks/useFetchData";
-import { useParams } from "react-router-dom";
 import { useInclude } from "./hooks/useInclude";
-import { useListingData } from './hooks/useUserListingData';
 import { ListingContext } from "../App";
 
 

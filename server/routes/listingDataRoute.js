@@ -1,9 +1,9 @@
 const express               = require('express');
 const router                = express.Router();
 const auth                  = require('../middleware/auth');
-const GetPending            = require('../controllers/getPending');
+const getAllListings        = require('../controllers/getListingData');
 
 router.route('/')
-    .get(auth, GetPending)
+    .get(auth, getAllListings)
 
 module.exports = router;

@@ -7,8 +7,6 @@ import { useState, useEffect } from 'react';
 import { useSortPay } from "./hooks/useSortPay";
 import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
-import { useFetchData } from "./hooks/useFetchData";
-import { useParams } from "react-router-dom";
 import { useListingData } from './hooks/useUserListingData';
 
 function Pending(props) {
