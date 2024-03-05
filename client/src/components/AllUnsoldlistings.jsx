@@ -7,7 +7,6 @@ import UnsoldTable from './UnsoldTable';
 import { useSortPay } from "./hooks/useSortUnsold";
 import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
-import { useFetchData } from './hooks/useFetchData';
 import { useState, useEffect } from 'react';
 import { useInclude } from "./hooks/useInclude";
 import { useListingData } from './hooks/useListingData';

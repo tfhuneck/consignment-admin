@@ -1,10 +1,6 @@
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import Element from "./DashElement";
 import ebayLogo from '../images/ebay-logo.png';
 import listed from './hooks/listed';
 import Status from "./Status";
-import payout from './hooks/payout';
 
 const UnsoldTable = ({currentRecords}) => {
 
