@@ -26,7 +26,7 @@ app.use(jsonParser);
 
 // =====routes===== 
 app.use(express.static(path.join(__dirname, 'build')));
-app.use('/allsummary', require('./routes/allSummaryRoute'))
+app.use('/listingdata', require('./routes/allSummaryRoute'))
 app.use('/summary', require('./routes/summaryRoute'))
 app.use('/allactive', require('./routes/allActiveRoute'));
 app.use('/allpending', require('./routes/allPendingRoute'));
@@ -73,14 +73,16 @@ app.get(['/', '/dash', '/users', '/listings', '/listings/:userid', '/transaction
   res.sendFile('index.html', {root: path.join(__dirname, './build')});
 });
 
-app.get('/testupdate', require('./updateDb'));
 app.use('/activenew', require('./routes/activeNewRoute')); // new active update to main db endpoint
 app.use('/pendingnew', require('./routes/pendingNewRoute')); // new pending update to main db endpoint
 app.use('/soldnew', require('./routes/soldNewRoute')); // new sold update to main db endpoint
 app.use('/unsoldnew', require('./routes/unsoldNewRoute')); // new unsold update to main db endpoint
 app.use('/canceled', require('./routes/canceledRoute')); // new active update to main db endpoint
 
+// +++++++++++++++++++++++++ Misc ++++++++++++++++++++++++++++++
 app.get('/canceledfill', require('./services/ebayCancelFill'))
+app.get('/testupdate', require('./updateDb'));
+app.get('/report', require('./report'));
 
 // runDataCalls(); // calling ebay api calls and updating Database;
 

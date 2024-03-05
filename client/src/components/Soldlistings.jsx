@@ -9,15 +9,14 @@ import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
 import { useFetchData } from "./hooks/useFetchData";
 import { useParams } from "react-router-dom";
+import { useListingData } from './hooks/useUserListingData';
 
 
-function Sold() {
+function Sold(props) {
 
-    // User ID from Route Params
-    const params = useParams();
+    const sku = props.sku
 
-    // fetch User Data hook
-    const {userData} = useFetchData('/sold', params.userid);
+    const { userData } = useListingData(sku, 'sold')
 
     // Custom Search hook 
     const { searchValue, filteredData, clearSearch, handleSearch } = useSearch(userData);

@@ -7,16 +7,14 @@ import { useState, useEffect } from 'react';
 import { useSort } from "./hooks/useSort";
 import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
-import { useFetchData } from "./hooks/useFetchData";
-import { useParams } from "react-router-dom";
+import { useListingData } from './hooks/useUserListingData';
 
 function Listings(props) {
 
-    // User ID from Route Params
-    const params = useParams();
+    const sku = props.sku
 
-    // fetch User Data hook
-    const {userData} = useFetchData('/active', params.userid);
+    // Filter data for user data
+    const { userData } = useListingData(sku, 'active')
     
     // Custom Search hook 
     const { searchValue, filteredData, clearSearch, handleSearch } = useSearch(userData);

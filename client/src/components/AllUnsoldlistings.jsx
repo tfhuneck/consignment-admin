@@ -10,12 +10,12 @@ import { usePagination } from "./hooks/usePagination";
 import { useFetchData } from './hooks/useFetchData';
 import { useState, useEffect } from 'react';
 import { useInclude } from "./hooks/useInclude";
-
+import { useListingData } from './hooks/useListingData';
 
 function AllUnsold() {
 
-    // fetch User Data hook
-    const {userData} = useFetchData('/allunsold');
+    // User Listing Data
+    const { userData } = useListingData('unsold', 'canceled');
 
     // Include categories hook
     const {stateInclude, handleAll, handleUnsold, handleCanceled} = useInclude(userData)

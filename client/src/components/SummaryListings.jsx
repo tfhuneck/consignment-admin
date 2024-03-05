@@ -4,21 +4,32 @@ import Search from "./Search";
 import Table from './SummaryListingsTable';
 import Loading from "./Loading";
 import Include from "./Include";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useSort } from "./hooks/useSortSummary";
 import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
 import { useFetchData } from "./hooks/useFetchData";
 import { useParams } from "react-router-dom";
 import { useInclude } from "./hooks/useInclude";
+import { useListingData } from './hooks/useUserListingData';
+import { ListingContext } from "../App";
+
 
 function Listings(props) {
 
-   // User ID from Route Params
-   const params = useParams();
+    const sku = props.sku
 
-   // fetch User Data hook
-   const {userData} = useFetchData('/summary',  params.userid);
+    const [ listingData, setListingData ]   = useContext(ListingContext);
+    const [ userData, setUserData ] = useState();
+    useEffect(() => {
+
+        let filtered = listingData ? listingData.filter((items) => {
+            if(items.sku) {
+                return items.sku.toLowerCase().includes(sku.toLowerCase());
+            }
+        }) : null;
+        setUserData(filtered)
+    }, [listingData])
 
    // Include categories hook
    const {stateInclude, handleAll, handleActive, handlePending, handleSold, handleUnsold, handleCanceled} = useInclude(userData)

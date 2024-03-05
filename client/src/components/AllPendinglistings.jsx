@@ -9,14 +9,12 @@ import { useSearch } from "./hooks/useSearch";
 import { usePagination } from "./hooks/usePagination";
 import { useFetchData } from "./hooks/useFetchData";
 import { useParams } from "react-router-dom";
+import { useListingData } from './hooks/useListingData';
 
 function AllPending() {
 
-    // User ID from Route Params
-    const params = useParams();
-
-    // fetch User Data hook
-    const {userData} = useFetchData('/allpending');
+    // User Listing Data
+    const { userData } = useListingData('pending');
     
     // Custom Search hook 
     const { searchValue, filteredData, clearSearch, handleSearch } = useSearch(userData);
