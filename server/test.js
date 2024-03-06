@@ -1,18 +1,28 @@
 const axios = require('axios');
 const fs = require('fs');
 const runUpdate = require('./controllers/maindbUpdate')
-const getCanceled = require('./services/ebayCanceledListApi')
-const cancelFill = require('./services/ebayCancelFill')
 
 
 const runTest = async (id) => {
     console.log('call made')
 
     // runUpdate();
-    getCanceled();
+    // getCanceled();
 
+    let userData = {
+        userid : 'N5BGW21dzvW7rZe8llMrIkxySjG2'
+    }
 
     const serverUrl     = 'http://localhost:8090' || PORT
+
+    axios.get(
+        serverUrl + 
+        '/updateuser', 
+        {params: { userData } }
+    )
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err))
+    
     
     // axios.get(serverUrl + '/report')
     //     .then((res) => console.log(res.data))
