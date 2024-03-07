@@ -1,4 +1,4 @@
-const Canceled = require('../model/CanceledItem');
+const Canceled = require('../model/CanceledCache');
 
 const postCanceled = async (req, res) => {
 

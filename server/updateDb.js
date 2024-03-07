@@ -1,43 +1,31 @@
-const MainData = require('./model/AllItem');
-const SoldData = require('./model/Solditem');
-const ActiveData = require('./model/Activelisting');
-const ActiveCache = require('./model/ActiveCache')
-const PendingData = require('./model/Pendingitem');
-const fs = require('fs');
-
+const Users     = require('./model/User')
+const Usersnew  = require('./model/UserNew')
 
 const updateDb = async (req, res) => {
-    const main = await MainData.find();
-    const sold = await SoldData.find();
- 
-    const missing = sold.filter((i) => main.every((n) => i.itemid !== n.itemid))
- 
-    console.log(missing.length)
-  
-   let addMissingData = missing.map((i) => {
-        return{
-            itemid : i.itemid,
-            title : i.title,
-            sku : i.sku,
-            itemurl : i.itemurl,
-            imageurl : i.imageurl,
-            starttime : i.starttime,
-            endtime : i.endtime,
-            finalprice : i.price,
-            paymentstatus : i.paymentstatus,
-            status : 'sold'
+    
+    const allUsers = await Users.find()
+    console.log(allUsers.length)
+
+    for(let i = 0; i < allUsers.length; i++){
+        console.log(allUsers[i].skucode)
+        let NewUser = {
+            _id: allUsers[i]._id,
+            userid: allUsers[i].userid,
+            name: allUsers[i].name,
+            email: allUsers[i].email,
+            phone: allUsers[i].phone,
+            address: allUsers[i].address,
+            avatar: allUsers[i].avatar,
+            skucode: allUsers[i].skucode,
+            cashouts: allUsers[i].cashouts,
+            createdAt: allUsers[i].createdAt,
+            rules: allUsers[i].rules,
         }
-   })
-
-   console.log(addMissingData)
-
-    try{
-        await MainData.insertMany(addMissingData)
-    }catch (err){
-        console.log(err);
-        res.status(500).json(err);
+        await Usersnew.create(NewUser)
+        console.log(`data migrated for ${allUsers[i].skucode}`)
     }
-    res.send('update complete');
+
+    res.send('data migrated')
 }
 
 module.exports = updateDb;

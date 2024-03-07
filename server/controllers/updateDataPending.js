@@ -19,16 +19,12 @@ const updateActiveListings = async (req, res) => {
                 endtime: i.endtime,
                 finalprice: i.price,
                 paymentstatus: i.paymentstatus,
+                itemurl: i.itemurl,
                 status: 'pending'
             }
         }
     }));
 
-    // console.log(cachedItems.length)
-    // console.log(updateItems.length)
-    console.log(updateData.length)
-    // console.log(updateMain.length)
-    // console.log(newitems.length)
 
     try{
         await Promise.all(updateData.map(async (data) => {

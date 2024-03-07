@@ -91,7 +91,7 @@ const UserDataOverview = (props) => {
                         Active listings: 
                     </div>
                     <div className="col">
-                        {displayUser && displayUser.activeitems.length}
+                        {displayUser && displayUser.activeitems.sum}
                     </div>
                 </div>
                 <div className="row">
@@ -99,7 +99,7 @@ const UserDataOverview = (props) => {
                         Pending listings: 
                     </div>
                     <div className="col">
-                        {displayUser && displayUser.pendingitems.length}
+                        {displayUser && displayUser.pendingitems.sum}
                     </div>
                 </div>
                 <div className="row">
@@ -107,7 +107,7 @@ const UserDataOverview = (props) => {
                         Sold listings: 
                     </div>
                     <div className="col">
-                        {displayUser && displayUser.solditems.length}
+                        {displayUser && displayUser.solditems.sum}
                     </div>
                 </div>
                 <div className="row">

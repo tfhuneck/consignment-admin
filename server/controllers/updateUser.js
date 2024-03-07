@@ -5,7 +5,6 @@ const PORT          = process.env.PORT || 8090; // Enviroment Port
 const Listings      = require('../model/AllItem');
 const User          = require('../model/User');
 const UserNew       = require('../model/UserNew');
-const totalBalance  = require('../modules/totalBalance');
 const totalCashouts = require('../modules/totalCashouts');
 const payout        = require('../modules/payout');
 
@@ -46,7 +45,7 @@ const updateUser = async (req, res, next) => {
         total: activeTotal,
         payout: activePayout,
     }
-
+   
     // Pending Data Points 
     const pendingTotal  = Pending && Pending.length > 0 ? Pending.map(i => i.finalprice).reduce((prev, next)=> (prev + next)).toFixed(2) : 0;
     const pendingPayout = Pending && Pending.length > 0 ? Pending.map(i => Number(payout(i.finalprice))).reduce((prev, next)=> (prev + next)).toFixed(2) : 0;
@@ -90,210 +89,36 @@ const updateUser = async (req, res, next) => {
     let cashoutTotal    = totalCashouts(getUser);
     const newBalance    = Number((payoutTotal - cashoutTotal).toFixed(2));
 
+    // conole logging updates
+    console.log(`${sku} active items: `)
+    console.log(activeData)
+    console.log(`${sku} pending items: `)
+    console.log(pendingData)
+    console.log(`${sku} sold items: `)
+    console.log(soldData)
+    console.log(`${sku} unsold items: `)
+    console.log(unsoldData)
+    console.log(`${sku} canceled items: `)
+    console.log(canceledData)
+    console.log(`${sku} balance: `)
+    console.log(newBalance)
+
     // Update User Data
     await UserNew.findOneAndUpdate({userid: userId},
         {
-            $set: {activeitems: activeData},
-            $set: {pendingitems: pendingData},
-            $set: {solditems: soldData},
-            $set: {unsolditems: unsoldData},
-            $set: {canceleditems: canceledData},
-            $set: {balance : balanceItems},
-            $set: {currentbalance : newBalance},
+            $set: {
+                activeitems: activeData,
+                pendingitems: pendingData,
+                solditems: soldData,
+                unsolditems: unsoldData,
+                canceleditems: canceledData,
+                balance : balanceItems,
+                currentbalance : newBalance
+            },
         },
     )
-
-    // await UserNew.create(
-    //     {
-    //         userid: userId,
-    //         name: getUser.name,
-    //         skucode: getUser.skucode,
-    //         activeitems: activeData,
-    //         pendingitems: pendingData,
-    //         solditems: soldData,
-    //         unsolditems: unsoldData,
-    //         canceleditems: canceledData,
-    //         balance : balanceItems,
-    //         currentbalance : newBalance,
-    //     },
-        
-    // )
-
-
-    // const activeAdd         = (Active.filter((i) => !activeItemSub.some(n => n._id.toString() === i._id.toString()))).map((i) => i._id)
-    // const activeRemove      = (activeItemSub.filter((i) => !Active.some(n => n._id.toString() === i._id.toString()))).map((i) => i._id)
-
-    // const pendingAdd        = (Pending.filter((i) => !pendingItemSub.some(n => n._id.toString() === i._id.toString()))).map((i) => i._id)
-    // const pendingRemove     = (pendingItemSub.filter((i) => !Pending.some(n => n._id.toString() === i._id.toString()))).map((i) => i._id)
-
-    // const soldAdd           = (Sold.filter((i) => !soldItemSub.some(n => n._id.toString() === i._id.toString()))).map((i) => i._id)
-    // const soldRemove        = (soldItemSub.filter((i) => !Sold.some(n => n._id.toString() === i._id.toString()))).map((i) => i._id)
-
-    // const unsoldAdd         = (Unsold.filter((i) => !unsoldItemSub.some(n => n._id.toString() === i._id.toString()))).map((i) => i._id)
-    // const unsoldRemove      = (unsoldItemSub.filter((i) => !Unsold.some(n => n._id.toString() === i._id.toString()))).map((i) => i._id)
-
-    // const canceledAdd       = (Canceled.filter((i) => !canceledItemSub.some(n => n._id.toString() === i._id.toString()))).map((i) => i._id)
-    // const canceledRemove    = (canceledItemSub.filter((i) => !Canceled.some(n => n._id.toString() === i._id.toString()))).map((i) => i._id)
-
-    // const balanceItems      = Sold.map((i) => {
-    //     return {
-    //         title : i.title,
-    //         price: i.finalprice,
-    //         date: i.endtime,
-    //         payout: payoutCalc(i.finalprice)
-    //     };
-    // })
-
-    // let payoutTotal     = totalBalance(getUser);
-    // console.log(payoutTotal)
-    // let cashoutTotal    = totalCashouts(getUser);
-    // console.log(cashoutTotal)
-    // const newBalance    = Number((payoutTotal - cashoutTotal).toFixed(2));
-    // console.log(newBalance)
- 
-
-    // console.log(`Adding Active Items: ${activeAdd.length}`)
-    // console.log(`Removing Active Items: ${activeRemove.length}`)
-    // console.log(`Adding Pending Items: ${pendingAdd.length}`)
-    // console.log(`Removing Pending Items: ${pendingRemove.length}`)
-    // console.log(`Adding Sold Items: ${soldAdd.length}`)
-    // console.log(`Removing Sold Items: ${soldRemove.length}`)
-    // console.log(`Adding Unsold Items: ${unsoldAdd.length}`)
-    // console.log(`Removing Unsold Items: ${unsoldRemove.length}`)
-    // console.log(`Adding Canceled Items: ${canceledAdd.length}`)
-    // console.log(`Removing Canceled Items: ${canceledRemove.length}`)
-
-    // // Active Update
-    // await UserNew.findOneAndUpdate({userid: userId},
-    //     {$push: { activeitems: {$each: activeAdd } }},
-    // )
-    // await UserNew.findOneAndUpdate({userid: userId},
-    //     {$pullAll: { activeitems: activeRemove }},
-    // )
-    // // Pending Update
-    // await UserNew.findOneAndUpdate({userid: userId},
-    //     {$push: { pendingitems: {$each: pendingAdd } }},
-    // )
-    // await UserNew.findOneAndUpdate({userid: userId},
-    //     {$pullAll: { pendingitems: pendingRemove }},
-    // )
-    // // Sold Update
-    // await UserNew.findOneAndUpdate({userid: userId},
-    //     {$push: { solditems: {$each: soldAdd } }},
-    // )
-    // await UserNew.findOneAndUpdate({userid: userId},
-    //     {$pullAll: { solditems: soldRemove }},
-    // )
-    // // Unsold Update
-    // await UserNew.findOneAndUpdate({userid: userId},
-    //     {$push: { unsolditems: {$each: unsoldAdd } }},
-    // )
-    // await UserNew.findOneAndUpdate({userid: userId},
-    //     {$pullAll: { unsolditems: unsoldRemove }},
-    // )
-    // // Canceled Update
-    // await UserNew.findOneAndUpdate({userid: userId},
-    //     {$push: { canceleditems: {$each: canceledAdd } }},
-    // )
-    // await UserNew.findOneAndUpdate({userid: userId},
-    //     {$pullAll: { canceleditems: canceledRemove }},
-    // )
-    
-
-    // // Current Balance Update
-    // await UserNew.findOneAndUpdate({userid: userId},
-    //     // {$push: {balance: {$each: balanceItems } }},
-    //     {set: {balance : balanceItems}}
-    // )
-
- 
-    // await UserNew.findOneAndUpdate({userid: userId},
-    //     {currentbalance: newBalance},
-    // )
-
-    // console.log(`${sku} current balance updated to ${newBalance}`);
     console.log('================= User Update Complete ===================')
-        
-        
-    // // try{
-    //     // await activeItemSub.remove({});
-    //     // await getUser.save();
-    //     // await activeItemSub.push({$each: Active})
-    //     // await getUser.save();
-    //     // await balanceSub.remove({});
-    //     // await getUser.save();
-    //     // await balanceSub.push({$each: Sold});
-    //     // await getUser.save();
-    //     // await pendingItemSub.remove({})
-    //     // await getUser.save();
-    //     // await pendingItemSub.push({$each: Pending});
-    //     // await getUser.save();
-    // //     await soldItemSub.remove({})
-    // //     await getUser.save();
-    // //     await soldItemSub.push({$each: soldData});
-    // //     await getUser.save();
-    // // } catch (error) {
-    // //     console.log(error) 
-    // // }
-
-    // // const updateActiveItems = async () => {
-    // //     await axios.get(serverUrl + '/updateuseractive', {
-    // //         params: { userId }
-    // //     })
-    // //     .then((res) => console.log(res.data))
-    // //     .catch((err) => console.log(err));
-    // // }
-
-    // // const updateSoldItems = async () => {
-    // //     await axios.get(serverUrl + '/updateusersold', {
-    // //         params: { userId }
-    // //     })
-    // //     .then((res) => console.log(res.data))
-    // //     .catch((err) => console.log(err));
-    // // }
-
-    // // const updatePendigItems = async () => {  
-    // //     await axios.get(serverUrl + '/updateuserpending', {
-    // //         params: { userId }
-    // //     })
-    // //     .then((res) => console.log(res.data))
-    // //     .catch((err) => console.log(err));
-    // // }
-
-    // // const updateUnSoldItems = async () => {  
-    // //     await axios.get(serverUrl + '/updateuserunsold', {
-    // //         params: { userId }
-    // //     })
-    // //     .then((res) => console.log(res.data))
-    // //     .catch((err) => console.log(err));
-    // // }
-
-    // // const updateUserBalance = async () => {
-    // //     await axios.get(serverUrl + '/updateuserbalance', {
-    // //         params: { userId }
-    // //     })
-    // //     .then((res) => console.log(res.data))
-    // //     .catch((err) => console.log(err));
-       
-    // // }
-
-    // // const updateCurrentBalance = async () => {
-    // //     await axios.get(serverUrl + '/updateusercurrentbalance', {
-    // //         params: { userId }
-    // //     })
-    // //     .then((res) => console.log(res.data))
-    // //     .catch((err) => console.log(err));
-    // // }
-   
-    // // await updateActiveItems();
-    // // await updateSoldItems();
-    // // await updatePendigItems();
-    // // await updateUnSoldItems();
-    // // await updateUserBalance();
-    // // await updateCurrentBalance();
-
-    res.status(200).send('user updated');
-
+    res.status(200).send(`user ${sku} updated`);
 }
 
 module.exports = updateUser;

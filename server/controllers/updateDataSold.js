@@ -17,6 +17,7 @@ const updateActiveListings = async (req, res) => {
                 endtime: i.endtime,
                 finalprice: i.price,
                 paymentstatus: i.paymentstatus,
+                itemurl: i.itemurl,
                 status: 'sold'
             }
         }

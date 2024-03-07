@@ -9,6 +9,7 @@ const analysisSchema = new mongoose.Schema({
     pendingsum: {type: Number, default: 0},
     pendingamount: {type: Number, default: 0},
     unsoldsum: {type: Number, default: 0},
+    canceledsum: {type: Number, default: 0},
 
     },
     { timestamps: true }

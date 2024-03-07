@@ -1,9 +1,8 @@
 const express               = require('express');
 const router                = express.Router();
-const getImages             = require('../controllers/updateImagesSold');
+const clearListings         = require('../controllers/clearCanceledCache')
 
 router.route('/')
-    .get(getImages)
-
+    .get(clearListings)
 
 module.exports = router;

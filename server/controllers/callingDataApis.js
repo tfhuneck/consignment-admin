@@ -5,6 +5,7 @@ const updateAllUsers    = require('../controllers/updateAllUsers');
 const updateUnsold      = require('../services/ebayUnsoldListApi');
 const updateCanceled    = require('../services/ebayCanceledListApi')
 const mainDbUpdates     = require('./maindbUpdate');
+const updateImages      = require('./getItemImages')
 
 const callData = async () => {
     // setInterval( async () => {
@@ -23,6 +24,8 @@ const callData = async () => {
     //     await mainDbUpdates();
 
     //     await updateAllUsers();
+
+    //     await updateImages();
         
     // }, 3600000);
 
@@ -41,6 +44,8 @@ setTimeout( async () => {
     await mainDbUpdates();
 
     await updateAllUsers();
+
+    await updateImages();
 
     }, 30000)
 };
