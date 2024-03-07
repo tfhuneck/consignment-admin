@@ -1,4 +1,4 @@
-const Canceled      = require('../model/CanceledItem');
+const Canceled      = require('../model/CanceledCache');
 const MainData      = require('../model/AllItem');
 
 const updateCancledListings = async (req, res) => {

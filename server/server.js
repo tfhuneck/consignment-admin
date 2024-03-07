@@ -29,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use('/listingdata', require('./routes/listingDataRoute'))
 app.use('/active', require('./routes/activeListingsRoute'));
 app.use('/clearactive', require('./routes/clearActiveRoute'));
+app.use('/clearcanceled', require('./routes/clearCanceledRoute'));
 app.use('/clearpending', require('./routes/clearPendingRoute'));
 app.use('/clearunsold', require('./routes/clearUnsoldRoute'));
 app.use('/clearsold', require('./routes/clearSoldRoute'));
@@ -57,10 +58,6 @@ app.use('/usertoken', require('./routes/userTokenRoute'))  // save minted Userto
 app.use('/refreshtoken', require('./routes/ebayRefreshTokenRoute')) //  ebay refresh token 
 app.use('/request', require('./routes/requestRoute')); 
 app.use('/image', require('./routes/ebayGetImageRoute')); // retrieve image url from ebay api with item id
-app.use('/activeimages', require('./routes/acticeImagesRoute'));
-app.use('/soldimages', require('./routes/soldImagesRoute'));
-app.use('/pendingimages', require('./routes/pendingImagesRoute'));
-app.use('/unsoldimages', require('./routes/unsoldImagesRoute'));
 app.use('/apptoken', require('./routes/appTokenRoute'));
 
 // serving static files with page routes from index files
@@ -79,7 +76,7 @@ app.get('/canceledfill', require('./services/ebayCancelFill'))
 app.get('/testupdate', require('./updateDb'));
 app.get('/report', require('./report'));
 
-// runDataCalls(); // calling ebay api calls and updating Database;
+runDataCalls(); // calling ebay api calls and updating Database;
 
 // =========Setting up Server om port 8090============
 app.listen(PORT, () => {

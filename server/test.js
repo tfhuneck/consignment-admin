@@ -17,9 +17,10 @@ const runTest = async (id) => {
 
     axios.get(
         serverUrl + 
-        '/updateuser', 
+        '/image', 
         {params: { userData } }
     )
+    // await axios.post(serverUrl + '/analysis')
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err))
     

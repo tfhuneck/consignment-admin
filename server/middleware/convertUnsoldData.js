@@ -4,7 +4,7 @@ const convertData = async (req, res, next) => {
     const rawData           = req.body.rawData;
     const unSoldData        = JSON.parse(convert.xml2json(rawData, {compact: true, spaces: 2, object: true }));
     const sorted            = unSoldData.GetMyeBaySellingResponse.UnsoldList.ItemArray.Item
-    console.log(sorted)
+    // console.log(sorted)
     const unsoldItemsArray  = [];
 
     sorted.map((data) => {

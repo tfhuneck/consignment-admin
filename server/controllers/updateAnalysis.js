@@ -1,30 +1,31 @@
 const Analysis  = require('../model/Analysis');
 const Users     = require('../model/User');
-const Active    = require('../model/Activelisting');
-const Pending   = require('../model/Pendingitem');
-const Sold      = require('../model/Solditem');
-const Unsold    = require('../model/Unsolditem');
+const Listings  = require('../model/AllItem')
 
 
 const updateAnalysis = async (req, res) => {
 
     console.log('updating analysis data ...')
+
     
     try{
-        const users     = await Users.find();
-        const active    = await Active.find();
-        const pending   = await Pending.find();
-        const sold      = await Sold.find();
-        const unsold    = await Unsold.find();
+        const listingData       = await Listings.find();
+        const getUsers          = await Users.find();
+        const Active            = await listingData.filter((i) =>  i.status === 'active')
+        const Pending           = await listingData.filter((i) =>  i.status === 'pending')
+        const Sold              = await listingData.filter((i) =>  i.status === 'sold')
+        const Unsold            = await listingData.filter((i) =>  i.status === 'unsold')
+        const Canceled          = await listingData.filter((i) =>  i.status === 'canceled')    
     
-        const userSum       = await users.length;
-        const activeSum     = await active.length;
-        const activeAmount  = await active.map(i => i.currentprice).reduce((prev, next)=> (prev + next)).toFixed(2);
-        const soldSum       = await sold.length;
-        const soldAmount    = await sold.map(i => i.price).reduce((prev, next) => (prev + next)).toFixed(2);
-        const pendingSum    = await pending.length;
-        const pendingAmount = await pending.map(i => i.price).reduce((prev, next) => (prev + next)).toFixed(2);
-        const unsoldSum     = await unsold.length;
+        const userSum       = await Number(getUsers.length);
+        const activeSum     = await Number(Active.length);
+        const activeAmount  = await Active.map(i => i.currentprice).reduce((prev, next)=> (prev + next)).toFixed(2);
+        const soldSum       = await Number(Sold.length);
+        const soldAmount    = await Sold.map(i => i.finalprice).reduce((prev, next) => (prev + next)).toFixed(2);
+        const pendingSum    = await Number(Pending.length);
+        const pendingAmount = await Pending.map(i => i.finalprice).reduce((prev, next) => (prev + next)).toFixed(2);
+        const unsoldSum     = await Number(Unsold.length);
+        const canceledSum   = await Number(Canceled.length);
 
         const update = {
             users : userSum,
@@ -34,14 +35,15 @@ const updateAnalysis = async (req, res) => {
             soldamount: soldAmount,
             pendingsum : pendingSum,
             pendingamount : pendingAmount,
-            unsoldsum : unsoldSum
+            unsoldsum : unsoldSum,
+            canceledsum: canceledSum,
         }
 
         // const firstData = await Analysis.insertMany(update);
 
         await Analysis.findOneAndUpdate( null, update);
         
-        res.status(200).json('analysis updated');
+        res.status(200).json('=============== Analysis updated ===============');
 
     } catch(err){
         res.status(500).send(err);
