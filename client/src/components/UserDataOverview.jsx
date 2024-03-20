@@ -119,7 +119,7 @@ const UserDataOverview = (props) => {
                     </div>
                 </div> <br />
                 <div className="row">
-                    <div className="col">
+                    <div className="col mb-4">
                         User SKU: 
                         <input type="text" name="sku" id="sku" 
                             placeholder={displayUser && displayUser.skucode ? displayUser.skucode : 'enter sku'}
@@ -130,7 +130,7 @@ const UserDataOverview = (props) => {
                     </div>
                     <div className="spinner-border text-light" id="sku-load" role="status">
                     </div>
-                    <div className="col">
+                    <div className="col-sm">
                         <button 
                             className="btn btn-users-action" 
                             onClick={updateSku}

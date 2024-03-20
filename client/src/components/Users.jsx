@@ -41,7 +41,7 @@ const Users = () => {
         <>
             <div className="home-dash">
                 <div className="row users-row">
-                    <div className="col-4 users-left">
+                    <div className="col-lg-4 users-left">
                         <div className="container users-left">
                             <div className="row">
                                 <div className="col d-flex mt-3">
@@ -70,7 +70,7 @@ const Users = () => {
                                 <div className="col-sm-4">
                                     <img className='profile-page-img' src={profile} />
                                 </div>
-                                <div className='col'>
+                                <div className='col text-center'>
                                     <div className='row'>
                                         <div className="col">
                                             <button className="btn-user-page" id="overview" onClick={() => setDisplay('overview')} >Overview</button>
@@ -89,7 +89,7 @@ const Users = () => {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col d-flex justify-content-center">
+                                <div className="col d-flex justify-content-center mt-4">
                                     <h5> {displayUser && displayUser.name}</h5>
                                 </div>
                             </div>

@@ -1,4 +1,5 @@
-const User          = require('../model/User');
+// const User          = require('../model/User');
+const User          = require('../model/UserNew')
 const PendingItem   = require('../model/Pendingitem');
 
 const update = async (req, res, next) => {

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import logo from '../images/logo.png'
 import firebaseAuth from '../config/firebase-config';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate} from 'react-router-dom';
 import { AuthContext } from '../App';
 import { getAuth, signOut } from "firebase/auth";
@@ -9,8 +9,47 @@ import { getAuth, signOut } from "firebase/auth";
 const Nav = () => {
 
     const [ userAuth, setUserAuth ] = useContext(AuthContext);
+    const [ expand, setExpand ]     = useState(false);
     const auth                      = getAuth(firebaseAuth);
     const navigate                  = useNavigate();
+
+    useEffect(() => {
+        const container = document.getElementById('mobile-nav-container');
+        const mNavbar = document.getElementById('mobile-navbar');
+        
+        if(expand){ 
+            container.classList.remove('mobile-nav-default');
+            container.classList.add('mobile-nav-active');
+            mNavbar.classList.add('mobile-navbar-expand');
+            mNavbar.classList.remove('mobile-navbar-fold');
+        }; 
+        if(!expand){
+            container.classList.add('mobile-nav-default');
+            container.classList.remove('mobile-nav-active');
+            mNavbar.classList.remove('mobile-navbar-expand');
+            mNavbar.classList.add('mobile-navbar-fold');
+        };
+
+    }, [expand, setExpand])
+
+    var burger = document.getElementById('mobile-nav')
+    var lastScroll = 0;
+    
+    window.onscroll = function() {
+        let currentScroll = document.documentElement.scrollTop || document.body.scrollTop; // Get Current Scroll Value
+        if (!expand && currentScroll - lastScroll >= 200){
+            lastScroll = currentScroll;
+            setTimeout(() => {
+                // burger.style.position = 'absolute';
+                burger.classList.add('mobile-nav-slide');
+            },500)
+        }if(currentScroll - lastScroll < 0) {
+            lastScroll = currentScroll;
+            setTimeout(() => {
+                burger.classList.remove('mobile-nav-slide');
+            },100)
+        }
+    };
 
     const handleLogout = () => {
         signOut(auth).then(() => {
@@ -231,6 +270,142 @@ const Nav = () => {
                             <div className='col nav-txt'>
                                 Logout
                             </div>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+            <div className='mobile-nav mobile-nav-usr' id='mobile-nav'>
+                <div className="mobile-nav-center">
+                    <div id='mobile-nav-container' onClick={() => setExpand(!expand)} className='mobile-nav-default'>
+                        <div className='line-1'></div>
+                        <div className='line-2'></div>
+                        <div className='line-3'></div>
+                    </div>
+                </div>
+            </div>
+            <div className='mobile-navbar mobile-navbar-usr container' id='mobile-navbar'>
+                <div className='row'>
+                    <div className='col d-flex justify-content-center'>
+                        <Link className='mobile-navbar-link link-usr-nav' id='mobile-navbar-link-1' to='/dash' onClick={() => setExpand(!expand)}>
+                            <svg 
+                                className='mobile-navbar-icn'
+                                stroke="currentColor"
+                                xmlns="http://www.w3.org/2000/svg" 
+                                viewBox="0 0 96 120" 
+                                fill="none" 
+                                x="0px" 
+                                y="0px"
+                            >
+                                <path 
+                                    d="M52.6891 14.3069C50.0251 11.8977 45.9749 11.8977 43.3109 14.3069L20.9974 34.4643L20.9911 34.47L14.8145 40.0776L14.8109 40.0808C13.3403 41.4108 12.5 43.3036 12.5 45.2904V76.4835C12.5 80.3627 15.6381 83.5 19.5 83.5H76.5C80.3619 83.5 83.5 80.3627 83.5 76.4835V45.2904C83.5 43.3036 82.6597 41.4108 81.1891 40.0808L52.6891 14.3069ZM39.9572 10.5985C44.5254 6.46717 51.4746 6.46717 56.0428 10.5985L84.5428 36.3724C87.0628 38.6513 88.5 41.8919 88.5 45.2904V76.4835C88.5 83.1159 83.1315 88.5 76.5 88.5H19.5C12.8685 88.5 7.5 83.1159 7.5 76.4835V45.2904C7.5 41.8928 8.93646 38.653 11.4551 36.3742C11.4558 36.3736 11.4565 36.373 11.4572 36.3724L17.6429 30.7566L39.9572 10.5985Z" 
+                                    fill="currentColor"  
+                                />
+                                <path 
+                                    d="M68.5 74C68.5 75.3807 67.3807 76.5 66 76.5H30C28.6193 76.5 27.5 75.3807 27.5 74C27.5 72.6193 28.6193 71.5 30 71.5H66C67.3807 71.5 68.5 72.6193 68.5 74Z" 
+                                    fill="currentColor"  
+                                />
+                            </svg>
+                            Home
+                        </Link>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col d-flex justify-content-center'>
+                        <Link className='mobile-navbar-link link-usr-nav' id='mobile-navbar-link-4' to='/users' onClick={() => setExpand(!expand)} >
+                            <svg 
+                                className='mobile-navbar-icn'
+                                stroke="currentColor"
+                                xmlns="http://www.w3.org/2000/svg" 
+                                version="1.1" 
+                                x="0px" 
+                                y="0px" 
+                                viewBox="0 0 54.691 68.36375000000001" 
+                            >
+                                <path
+                                    fill="currentColor" 
+                                    d="M-4318.56-68.404c-43.25,0-78.438,35.186-78.438,78.435c0,43.252,35.188,78.439,78.438,78.439s78.436-35.188,78.436-78.439   C-4240.124-33.218-4275.31-68.404-4318.56-68.404z M-4318.867-35.187c13.682,0,24.771,11.092,24.771,24.771   c0,13.681-11.092,24.771-24.771,24.771c-13.683,0-24.771-11.092-24.771-24.771C-4343.639-24.095-4332.55-35.187-4318.867-35.187z    M-4274.686,65.074c-12.042,9.627-27.292,15.396-43.874,15.396c-16.562,0-31.797-5.75-43.834-15.354   c1.116-19.851,14.187-39.903,30.178-39.903h27.332c16.024,0,29.128,19.324,30.197,39.206c0.001,0.002,0.001,0.004,0.001,0.006   C-4274.686,64.427-4274.686,64.786-4274.686,65.074z"
+                                />
+                                <circle 
+                                    fill="currentColor" 
+                                    cx="27.443" 
+                                    cy="21.101" 
+                                    r="7.807"
+                                />
+                                <path 
+                                    fill="currentColor"
+                                    d="M27.345,2.659c-13.612,0-24.687,11.074-24.687,24.686c0,13.613,11.074,24.688,24.687,24.688   s24.687-11.074,24.687-24.688C52.032,13.733,40.958,2.659,27.345,2.659z M40.915,44.937c-0.269-6.156-4.318-12.13-9.278-12.13   h-8.387c-5,0-9.074,6.071-9.283,12.279c-5.373-4.062-8.853-10.502-8.853-17.742c0-12.258,9.974-22.23,22.231-22.23   c12.259,0,22.231,9.973,22.231,22.23C49.577,34.498,46.178,40.867,40.915,44.937z"
+                                />
+                            </svg>
+                            Users
+                        </Link>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col d-flex justify-content-center'>
+                        <Link className='mobile-navbar-link link-usr-nav' id='mobile-navbar-link-3' to='/cashouts' onClick={() => setExpand(!expand)}>
+                            <svg
+                                className='mobile-navbar-icn'
+                                stroke="currentColor"
+                                xmlns="http://www.w3.org/2000/svg"  
+                                version="1.1" 
+                                x="0px" 
+                                y="0px" 
+                                viewBox="0 0 64 80" 
+                            >
+                                <path
+                                    fill="currentColor"  
+                                    d="M59.75,2H4.25c-0.5522461,0-1,0.4477539-1,1v9.7021484c0,0.5522461,0.4477539,1,1,1h55.5c0.5522461,0,1-0.4477539,1-1V3    C60.75,2.4477539,60.3022461,2,59.75,2z M58.75,11.7021484H5.25V4h53.5V11.7021484z"
+                                />
+                                <path
+                                    fill="currentColor"  
+                                    d="M14.3408203,9.2241211h35.3183594c1.3021507-0.0187187,1.3242683-1.9766874-0.0000534-1.9999967    c0.0000534-0.0000033-35.318306-0.0000033-35.318306-0.0000033C13.0386696,7.2428398,13.016551,9.2008085,14.3408203,9.2241211z"
+                                />
+                                <path
+                                    fill="currentColor"  
+                                    d="M39,43.4082031c0-0.5522461-0.4477539-1-1-1H20.3852539V16c-0.0170364-1.3028641-1.9780407-1.3231306-1.9999943,0.0000515    C18.3852539,16,18.3852539,43.4082031,18.3852539,43.4082031c0,0.5522461,0.4477539,1,1,1H38    C38.5522461,44.4082031,39,43.9604492,39,43.4082031z"
+                                />
+                                <path
+                                    fill="currentColor"  
+                                    d="M45.6147461,34.0258789V16c0-0.5522461-0.4477539-1-1-1s-1,0.4477539-1,1v18.0258789    C43.6353378,35.334568,45.5919991,35.3448143,45.6147461,34.0258789z"
+                                />
+                                <path
+                                    fill="currentColor"  
+                                    d="M32,23.7163086c-3.3574219,0-6.0888672-2.4785156-6.0888672-5.5249023c0-0.5522461-0.4477539-1-1-1s-1,0.4477539-1,1    c0,4.1494141,3.628418,7.5249023,8.0888672,7.5249023s8.0888672-3.3754883,8.0888672-7.5249023    c0.0717049-0.6182632-0.40765-1.2480412-1.0336914-1.190918c-0.625721,0.0150719-1.0437241,0.5885696-0.9662857,1.1909275    C38.0888672,21.237793,35.3574219,23.7163086,32,23.7163086z"
+                                />
+                                <path
+                                    fill="currentColor"  
+                                    d="M23.4316406,30v4.4521484c-0.0152016,0.6725273,0.7212334,1.186409,1.3476696,0.9374809    c0.3124866-0.1132622,3.1108265-1.0131645,5.1142445,2.1557808c0.1831055,0.2900391,0.5024414,0.4658203,0.8452148,0.4658203    h2.5224609c0.3427734,0,0.6621094-0.1757813,0.8452148-0.4658203c2.003418-3.1699219,4.8017578-2.2685547,5.1079102-2.1582031    c0.6262741,0.2579842,1.3736534-0.2566986,1.3539886-0.9350777C40.5683594,34.4521484,40.5683594,30,40.5683594,30    c-0.0243225-1.3129635-1.9759712-1.3162022-2,0.0000439c0-0.0000439,0,3.2196827,0,3.2196827    c-1.6972656-0.1572266-4.0585938,0.3374023-5.8374023,2.7915039H31.269043    c-1.7792969-2.4541016-4.1411133-2.949707-5.8374023-2.7915039V30C25.4094429,28.6857166,23.4537449,28.6857128,23.4316406,30z"
+                                />
+                                <path
+                                    fill="currentColor"  
+                                    d="M54.6113281,27.9140625c-5.0310287-1.6599407-7.3390961,3.7522697-8.5141602,10.3256836l-5.559082,5.6391602    c-0.9114799,0.9300728,0.4997177,2.3355331,1.4238739,1.4042435c-0.0000458,0.0000534,5.7812042-5.8642044,5.7812042-5.8642044    c0.1455078-0.1474609,0.2412109-0.3359375,0.2749023-0.5400391c1.0224609-6.222168,2.6513672-8.328125,3.8383789-8.9990234    c0.6269531-0.3540039,1.3046875-0.3896484,2.0151367-0.1074219c0.0830078,0.0327148,0.1328125,0.1459961,0.112793,0.2573242    l-2.1132813,11.7900391L43.925293,52.1821289c-0.0771484,0.1005859-0.1347656,0.215332-0.1689453,0.3374023L41.6489258,60    H24.90625v-4.8637695c0-0.1791992-0.0483398-0.3549805-0.1391602-0.5092773L21.4375,48.9985352v-2.0722656    c-0.022089-1.3135109-1.9777184-1.3149719-1.9999981,0.000042C19.4375,46.9262695,19.4375,49.2719727,19.4375,49.2719727    c0,0.1791992,0.0483398,0.3549805,0.1391602,0.5092773l3.3295898,5.628418V61c0,0.5522461,0.4477539,1,1,1h18.5    c0.4477539,0,0.8413086-0.2978516,0.9624023-0.7290039l2.2607422-8.0244141L53.605957,42.84375    c0.097168-0.1264648,0.1625977-0.2749023,0.190918-0.4321289l2.15625-12.0288086    C56.140625,29.3364258,55.5766602,28.2983398,54.6113281,27.9140625z"
+                                />
+                            </svg>
+                            Cashouts
+                        </Link>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col d-flex justify-content-center'>
+                        <Link className='mobile-navbar-link link-usr-nav' id='mobile-navbar-link-7' onClick={handleLogout}>
+                            <svg 
+                                className='mobile-navbar-icn'
+                                xmlns="http://www.w3.org/2000/svg" 
+                                version="1.1" 
+                                x="0px" 
+                                y="0px" 
+                                viewBox="0 0 100 125" 
+                            >
+                                <path 
+                                    fill='currentColor'
+                                    d="M25,86h29c2.8,0,5-2.2,5-5s-2.2-5-5-5H25c-2.2,0-4-1.8-4-4V28c0-2.2,1.8-4,4-4h29c2.8,0,5-2.2,5-5s-2.2-5-5-5H25   c-7.7,0-14,6.3-14,14v44C11,79.7,17.3,86,25,86z"
+                                />
+                                <path 
+                                    fill='currentColor'
+                                    d="M75,31c-2-2-5.1-2-7.1,0c-2,2-2,5.1,0,7.1l7,7H38c-2.8,0-5,2.2-5,5s2.2,5,5,5h35.9l-6,6c-2,2-2,5.1,0,7.1   c1,1,2.3,1.5,3.5,1.5S74.1,69,75,68l15-15c2-2,2-5.1,0-7.1L75,31z"
+                                />
+                            </svg>
+                            Logout
                         </Link>
                     </div>
                 </div>

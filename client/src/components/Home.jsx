@@ -138,10 +138,10 @@ const Home = () => {
                             <h4>Misc</h4>
                             <div className="container-fluid">
                                 <div className="row">
-                                    <div className="col">
+                                    <div className="col-sm">
                                         Click button to authorize app with ebay account
                                     </div>
-                                    <div className="col">
+                                    <div className="col-sm">
                                         <button className="btn btn-users-action mb-2" onClick={connectEbay} >Connect & Authorize ebay</button>
                                     </div>
                                 </div>

@@ -30,7 +30,7 @@ const CashoutRequests = () => {
     const viewRequest = async (userId, cashoutReq) =>{
         let userData = {}
         await axios.get(
-            // serverUrl +
+            serverUrl +
             '/getUser',
             {params: {userId, userAuth}}
         ) .then((res) => {  
@@ -55,7 +55,7 @@ const CashoutRequests = () => {
             comment: comment
         };
         await axios.post(
-            // serverUrl +
+            serverUrl +
             '/addcashout', {
             userId,
             transaction
@@ -73,7 +73,7 @@ const CashoutRequests = () => {
         const load = document.getElementById('req-load')
         load.style.display = 'block';
         await axios.put(
-            // serverUrl +
+            serverUrl +
             '/request',
             {params:{
                 requestId
@@ -90,7 +90,7 @@ const CashoutRequests = () => {
             <div className="card home-dash">
                 <div className="container">
                    <div className="row">
-                        <div className="col">
+                        <div className="col-sm">
                             <h4 className="header">Cashout Requests</h4>
                             <div className="requests-box">
                                 <NoRequests data={requests}/>

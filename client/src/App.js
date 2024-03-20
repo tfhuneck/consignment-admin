@@ -37,10 +37,11 @@ function App() {
         // const userid = user.uid;
         const userData = {
           idToken : token,
-          // userid : userid
+          // userid : userid,
         }
         setUserAuth(userData);
         let userAuth= userData;
+        console.log(userAuth)
         await axios.get(
           serverUrl +
           '/listingdata',

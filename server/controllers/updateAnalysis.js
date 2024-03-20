@@ -1,5 +1,6 @@
 const Analysis  = require('../model/Analysis');
-const Users     = require('../model/User');
+// const Users     = require('../model/User');
+const Users     = require('../model/UserNew')
 const Listings  = require('../model/AllItem')
 
 

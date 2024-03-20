@@ -76,7 +76,7 @@ app.get('/canceledfill', require('./services/ebayCancelFill'))
 app.get('/testupdate', require('./updateDb'));
 app.get('/report', require('./report'));
 
-runDataCalls(); // calling ebay api calls and updating Database;
+// runDataCalls(); // calling ebay api calls and updating Database;
 
 // =========Setting up Server om port 8090============
 app.listen(PORT, () => {

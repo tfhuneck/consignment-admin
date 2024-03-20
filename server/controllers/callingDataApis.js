@@ -8,46 +8,48 @@ const mainDbUpdates     = require('./maindbUpdate');
 const updateImages      = require('./getItemImages')
 
 const callData = async () => {
-    // setInterval( async () => {
-    //     console.log('starting data call string');
+
+    setInterval( async () => {
+        console.log('starting data call string');
     
-    //     await updateActive();
+        await updateActive();
 
-    //     await updatePending();
+        await updatePending();
 
-    //     await updateSold();
+        await updateSold();
 
-    //     await updateUnsold();
+        await updateUnsold();
 
-    //     await updateCanceled();
+        await updateCanceled();
     
-    //     await mainDbUpdates();
+        await mainDbUpdates();
 
-    //     await updateAllUsers();
+        await updateAllUsers();
 
-    //     await updateImages();
+        await updateImages();
         
-    // }, 3600000);
+    }, 3600000);
 
-setTimeout( async () => {
+// setTimeout( async () => {
 
-    await updateActive();
+//     await updateActive();
 
-    await updatePending();
+//     await updatePending();
 
-    await updateSold();
+//     await updateSold();
 
-    await updateUnsold();
+//     await updateUnsold();
 
-    await updateCanceled();
+//     await updateCanceled();
     
-    await mainDbUpdates();
+//     await mainDbUpdates();
 
-    await updateAllUsers();
+//     await updateAllUsers();
 
-    await updateImages();
+//     await updateImages();
 
-    }, 30000)
+//     }, 30000)
+
 };
 
 
