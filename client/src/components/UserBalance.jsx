@@ -61,7 +61,7 @@ const UserBalance = (props) => {
                 </div>
             </div>
             <div className="row">
-                <div className="col">
+                <div className="col-sm">
                     <Link to={`/transactions/${displayUser.userid}`} >
                         <button className="btn btn-users-action">Manage Cashout Transactions</button>   
                     </Link>
@@ -71,7 +71,7 @@ const UserBalance = (props) => {
             </div>
         </div>
         <div className="row">
-            <div className="col">
+            <div className="col-sm order-2 order-sm-1">
                 Sales Transctions
                 <div className="user-display-info">
                     {displayUser && displayUser.balance.map((i) => {
@@ -113,7 +113,7 @@ const UserBalance = (props) => {
                     })}
                 </div>
             </div>
-            <div className="col">
+            <div className="col-sm order-1 ">
                 Cashout Transactions
                 <div className="user-display-info">
                 {displayUser && displayUser.cashouts.map((i) => {

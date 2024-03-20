@@ -3,6 +3,7 @@ import Pagination from "./Pagination";
 import Search from "./Search";
 import Sort from "./Sort";
 import UnsoldTable from './UnsoldTable';
+import TableMobile from './UnsoldMobile';
 import Include from "./IncludeUnsold";
 import { useSortPay } from "./hooks/useSortPay";
 import { useSearch } from "./hooks/useSearch";
@@ -50,14 +51,22 @@ function Unsold(props) {
         
         return (
             <>
-                <Search clearSearch={clearSearch} handleSearch={handleSearch} searchClass={'listings-search'} clearClass={'clear-search'} searchValue={searchValue} />
-                <Include  
-                    data={userData}
-                    state={stateInclude}
-                    handleAll={handleAll} 
-                    handleUnsold={handleUnsold}
-                    handleCanceled={handleCanceled}
-                />
+                <div className='row'>
+                    <div className='col'>
+                        <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} searchClass={'listings-search'} clearClass={'clear-search'}/>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col'>
+                        <Include  
+                            data={userData}
+                            state={stateInclude}
+                            handleAll={handleAll} 
+                            handleUnsold={handleUnsold}
+                            handleCanceled={handleCanceled}
+                        />
+                    </div>
+                </div>
                 <div className='table-responsive-lg table-main'>
                     <table className='table table-dark table-striped table-hover table-listings-mobile'>
                         <thead>
@@ -83,6 +92,39 @@ function Unsold(props) {
                             <UnsoldTable currentRecords={currentRecords} />
                         </tbody>
                     </table>
+                </div>
+                <div className='table-mobile container'>
+                    <div className='row d-flex justify-content-center'>
+                        <button className='btn-settings' onClick={handleSortName}>
+                            Sort Listing Name
+                            <span  >
+                                <Sort sort={state.sortName}/>
+                            </span>
+                        </button>
+                    </div>
+                    <div className='row d-flex justify-content-center'>
+                        <button className='btn-settings' onClick={handleSortDate}>
+                            Sort Sale Date
+                            <span  >
+                                <Sort sort={state.sortDate}/>
+                            </span>
+                        </button>
+                    </div>
+                    <br />
+                    <div className='row'>
+                        <table className='table table-dark table-striped table-hover '>
+                            <thead>
+                                <tr>
+                                    <th className="list-header">
+                                        Listing
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <TableMobile currentRecords={currentRecords} />
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div className="container">
                     <div className="row">

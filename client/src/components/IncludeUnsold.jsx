@@ -13,7 +13,7 @@ const Include = ({state, handleAll, handleActive, handlePending, handleSold, han
     return (
         <>
             {/* <div className="fw-bold">Show Status: </div> */}
-            <div className="container flex">
+            <div className="container flex  mt-3">
                 <div className="row">
                 <div className="col include">
                         <input 

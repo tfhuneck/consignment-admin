@@ -2,6 +2,7 @@ import Pagination from "./Pagination";
 import Sort from "./Sort";
 import Search from "./Search";
 import Table from './SummaryListingsTable';
+import TableMobile from './SummaryMobile';
 import Loading from "./Loading";
 import Include from "./Include";
 import { useEffect, useState, useContext } from "react";
@@ -48,44 +49,70 @@ function Listings(props) {
         
         return (
             <>
-                <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} searchClass={'listings-search'} clearClass={'clear-search-home'} />
-                <Include  
-                    data={listingData}
-                    state={stateInclude} 
-                    handleAll={handleAll}
-                    handleActive={handleActive}
-                    handlePending={handlePending}
-                    handleSold={handleSold}
-                    handleUnsold={handleUnsold}
-                    handleCanceled={handleCanceled}
-                />
-                <table className='table table-dark table-striped table-hover'>
-                    <thead>
-                        <tr>
-                            <th className="list-header" scope='col'>
-                                Listing
-                                <span onClick={handleSortName} >
-                                    <Sort sort={state.sortName} />
-                                </span>
-                            </th>
-                            <th className="list-header" scope='col'>
-                                Status
-                            </th>
-                            <th className="list-header" scope='col'>
-                                Price
-                                <span onClick={handleSortPrice} >
-                                    <Sort sort={state.sortPrice} />
-                                </span>
-                            </th>
-                            <th className="list-header" scope='col'>
-                                Payout
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <Table currentRecords={currentRecords} />
-                    </tbody>
-                </table>
+                <div className="row">
+                    <div className="col">
+                        <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} searchClass={'listings-search'} clearClass={'clear-search-home'} />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <Include  
+                            data={listingData}
+                            state={stateInclude} 
+                            handleAll={handleAll}
+                            handleActive={handleActive}
+                            handlePending={handlePending}
+                            handleSold={handleSold}
+                            handleUnsold={handleUnsold}
+                            handleCanceled={handleCanceled}
+                        />
+                    </div>
+                </div>
+                <div className="table-main">
+                    <table className='table table-dark table-striped table-hover'>
+                        <thead>
+                            <tr>
+                                <th className="list-header" scope='col'>
+                                    Listing
+                                    <span onClick={handleSortName} >
+                                        <Sort sort={state.sortName} />
+                                    </span>
+                                </th>
+                                <th className="list-header" scope='col'>
+                                    Status
+                                </th>
+                                <th className="list-header" scope='col'>
+                                    Price
+                                    <span onClick={handleSortPrice} >
+                                        <Sort sort={state.sortPrice} />
+                                    </span>
+                                </th>
+                                <th className="list-header" scope='col'>
+                                    Payout
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <Table currentRecords={currentRecords} />
+                        </tbody>
+                    </table>
+                </div>
+                <div className='table-mobile container'>
+                    <div className='row'>
+                        <table className='table table-dark table-striped table-hover '>
+                            <thead>
+                                <tr>
+                                    <th className="list-header">
+                                        Listing
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <TableMobile currentRecords={currentRecords} />
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 <div className="container">
                     <div className="row">
                         <div className="col d-flex justify-content-center">

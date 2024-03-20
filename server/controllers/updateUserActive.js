@@ -1,4 +1,5 @@
-const User          = require('../model/User');
+// const User          = require('../model/User');
+const User          = require('../model/UserNew')
 const Listing       = require ('../model/Activelisting');
 
 const update = async (req, res, next) => {

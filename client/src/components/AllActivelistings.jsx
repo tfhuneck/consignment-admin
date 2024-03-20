@@ -2,6 +2,7 @@ import Pagination from "./Pagination";
 import Sort from "./Sort";
 import Search from "./Search";
 import Table from './ActivelistingsTable';
+import TableMobile from './ActiveListingsMobile';
 import Loading from "./Loading";
 import { useState, useEffect } from 'react';
 import { useSort } from "./hooks/useSort";
@@ -40,40 +41,93 @@ function AllActive(props) {
         
         return (
             <>
-                <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} searchClass={'listings-search'} clearClass={'clear-search-home'} />
-                <table className='table table-dark table-striped table-hover'>
-                    <thead>
-                        <tr>
-                            <th className="list-header" scope='col'>
-                                Listing
-                                <span onClick={handleSortName} >
-                                    <Sort sort={state.sortName} />
-                                </span>
-                            </th>
-                            <th className="list-header" scope='col'>
-                                Time Left
-                                <span onClick={handleSortTime} >
-                                    <Sort sort={state.sortTime} />
-                                </span>
-                            </th>
-                            <th className="list-header" scope='col'>
-                                Bids
-                                <span onClick={handleSortBids} >
-                                    <Sort sort={state.sortBids} />
-                                </span>
-                            </th>
-                            <th className="list-header" scope='col'>
-                                Price
-                                <span onClick={handleSortPrice} >
-                                    <Sort sort={state.sortPrice} />
-                                </span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <Table currentRecords={currentRecords} />
-                    </tbody>
-                </table>
+                <div className="">
+                    <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} searchClass={'listings-search'} clearClass={'clear-search-home'} />
+                </div>
+                <div className="table-main">
+                    <table className='table table-dark table-striped table-hover'>
+                        <thead>
+                            <tr>
+                                <th className="list-header" scope='col'>
+                                    Listing
+                                    <span onClick={handleSortName} >
+                                        <Sort sort={state.sortName} />
+                                    </span>
+                                </th>
+                                <th className="list-header" scope='col'>
+                                    Time Left
+                                    <span onClick={handleSortTime} >
+                                        <Sort sort={state.sortTime} />
+                                    </span>
+                                </th>
+                                <th className="list-header" scope='col'>
+                                    Bids
+                                    <span onClick={handleSortBids} >
+                                        <Sort sort={state.sortBids} />
+                                    </span>
+                                </th>
+                                <th className="list-header" scope='col'>
+                                    Price
+                                    <span onClick={handleSortPrice} >
+                                        <Sort sort={state.sortPrice} />
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <Table currentRecords={currentRecords} />
+                        </tbody>
+                    </table>
+                </div>
+                <div className='table-mobile container'>
+                    <div className='row d-flex justify-content-center'>
+                        <button className='btn-settings' onClick={handleSortName}>
+                            Sort Listing Name
+                            <span  >
+                                <Sort sort={state.sortName} />
+                            </span>
+                        </button>
+                    </div>
+                    <div className='row d-flex justify-content-center'>
+                        <button className='btn-settings' onClick={handleSortTime}>
+                            Sort Time Left
+                            <span  >
+                                <Sort sort={state.sortTime} />
+                            </span>
+                        </button>
+                    </div>
+                    <div className='row d-flex justify-content-center'>
+                        <button className='btn-settings' onClick={handleSortBids}>
+                            Sort Bids
+                            <span  >
+                                <Sort sort={state.sortBids} />
+                            </span>
+                        </button>
+                    </div>
+                    <div className='row d-flex justify-content-center'>
+                        <button className='btn-settings' onClick={handleSortPrice} >
+                            Sort Price
+                            <span >
+                                <Sort sort={state.sortPrice} />
+                            </span>
+                        </button>
+                    </div>
+                    <br />
+                    <div className='row'>
+                        <table className='table table-dark table-striped table-hover '>
+                            <thead>
+                                <tr>
+                                    <th className="list-header">
+                                        Listing
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <TableMobile currentRecords={currentRecords} />
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 <div className="container">
                     <div className="row">
                         <div className="col d-flex justify-content-center">

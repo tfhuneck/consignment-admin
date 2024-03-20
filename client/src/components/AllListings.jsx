@@ -19,7 +19,7 @@ const AllListings = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col d-flex justify-content-center">
+                    <div className="col text-center">
                         <button id="dashListActive" className="dash-list" onClick={()=> setDisplayList('activeListings')}>Active Listings</button>
                         <button id="dashListPending" className="dash-list" onClick={()=> setDisplayList('pendingListings')}>Pending</button>
                         <button id="dashListSold" className="dash-list" onClick={()=> setDisplayList('soldListings')}>Sold Items</button>

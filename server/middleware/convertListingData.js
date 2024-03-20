@@ -60,7 +60,7 @@ const convertData = async (req, res, next) => {
             "bidcount": items.SellingStatus.BidCount? Number(items.SellingStatus.BidCount._text) : 0,
             "watchcount": items.WatchCount? Number(data.WatchCount._text) : 0
         }
-        console.log(convertedObject)
+        // console.log(convertedObject)
 
         req.convertedData = convertedObject
         next()
