@@ -288,7 +288,7 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   text-align: center;
-  height: 5.5rem;
+  height: fit-content;
   width: initial;
   margin: 0.5rem 0.75rem 0.5rem 0.75rem;
   transition: all 0.5s;
@@ -1123,11 +1123,20 @@ table tbody tr:last-child td:last-child {
     margin-bottom: 2rem;
     height: 3em;
   }
+  .btn-users-action{
+    height: fit-content;
+  }
   .home-text{
     font-size: 1em;
   }
   .userinfo{
     padding: 0.5rem;
+  }
+  .user-display-info{
+    max-height: fit-content;
+  }
+  .users-list{
+    height: fit-content;
   }
   .card-info {
     font-weight: 200;
@@ -1408,6 +1417,16 @@ table tbody tr:last-child td:last-child {
   }
   .requests-box{
     height: 50vh;
+  }
+  .request-display{
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  } 
+  .request-display-value{
+    outline: none;
+  }
+  .request-display-key{
+    outline: none;
   }
   .clear-search{
     display: none;

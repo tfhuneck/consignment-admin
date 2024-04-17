@@ -43,7 +43,7 @@ function App() {
         let userAuth= userData;
         console.log(userAuth)
         await axios.get(
-          serverUrl +
+          // serverUrl +
           '/listingdata',
           {params:{
                   userAuth

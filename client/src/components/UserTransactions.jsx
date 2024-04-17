@@ -155,7 +155,7 @@ const CashoutTransactions = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col">
+                        <div className="col-sm mt-4 mt-sm-0">
                             Cashout Transactions
                             <div className="user-display-info">
                             {displayUser && displayUser.cashouts.map((i) => {

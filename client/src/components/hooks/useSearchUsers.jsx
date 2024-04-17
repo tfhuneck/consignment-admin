@@ -6,7 +6,7 @@ export const useSearchUsers = (data) => {
     const [ filteredData, setFilteredData ]     = useState(data);
     
     useEffect(() => {
-        if (searchValue) {
+        if (searchValue && data) {
             let filtered = data.filter((data) => {
                     return data.name.toString().toLowerCase().includes(searchValue.toLowerCase()) 
                  })

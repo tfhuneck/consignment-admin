@@ -52,7 +52,7 @@ const Users = () => {
                             </div>
                             <div className="row">
                                 <div>
-                                <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} searchClass={'users-search'} clearClass={'clear-search-users'} />
+                                    <Search clearSearch={clearSearch} handleSearch={handleSearch} searchValue={searchValue} searchClass={'users-search'} clearClass={'clear-search-users'} />
                                 </div>
                             </div>
                             <div className="row">
